@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"time"
 )
 
 type Page struct {
@@ -17,6 +18,7 @@ type Page struct {
 	Groups    []Group
 	MapsKey   string
 	Version   string
+	Year      int
 }
 
 func addInt(num int, num2 int) int {
@@ -45,6 +47,7 @@ func init() {
 	appdata.Subtitle = " - Minnesota Go Language Meetup"
 	appdata.MapsKey = config.Maps.Key
 	appdata.Version = "1"
+	appdata.Year = time.Now().Year()
 
 	for _, e := range os.Environ() {
 		pair := strings.Split(e, "=")
