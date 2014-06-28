@@ -28,10 +28,11 @@ body > header .logo {
 }
 
 body > footer {
+    font-size: .8em;
     text-align: center;
     line-height: 50px;
     text-transform: lowercase;
-    .footer-domain {
+    .footer-domain, .footer-subtitle {
         font-size: 1.1em;
     }
 }

@@ -19,10 +19,11 @@ body > header .logo {
   vertical-align: middle; }
 
 body > footer {
+  font-size: .8em;
   text-align: center;
   line-height: 50px;
   text-transform: lowercase; }
-  body > footer .footer-domain {
+  body > footer .footer-domain, body > footer .footer-subtitle {
     font-size: 1.1em; }
 
 .members .featured-list__item .featured-list__img img {

@@ -44,7 +44,7 @@ func staticHandler(w http.ResponseWriter, r *http.Request) {
 func init() {
 	confInit()
 	appdata.Title = "Go(lang)MN"
-	appdata.Subtitle = " - Minnesota Go Language Meetup"
+	appdata.Subtitle = "Minnesota Go Language Meetup"
 	appdata.MapsKey = config.Maps.Key
 	appdata.Version = "1"
 	appdata.Year = time.Now().Year()
