@@ -51,6 +51,9 @@ body > footer {
   -webkit-transform: scaleY(1);
   transition: all 1.7s ease-in-out; }
 
+.members .featured-list__img-wrapper {
+  display: block; }
+
 .members .featured-list__item:hover {
   overflow: hidden; }
 
