@@ -12,6 +12,7 @@ import (
 type Page struct {
 	Bootstrap bootstrap
 	Title     string
+	Subtitle  string
 	Members   []Member
 	Groups    []Group
 	MapsKey   string
@@ -40,14 +41,15 @@ func staticHandler(w http.ResponseWriter, r *http.Request) {
 
 func init() {
 	confInit()
-	appdata.Title = "Go(lang)MN - Minnesota Go Language Meetup"
+	appdata.Title = "Go(lang)MN"
+	appdata.Subtitle = " - Minnesota Go Language Meetup"
 	appdata.MapsKey = config.Maps.Key
-    appdata.Version = "1"
+	appdata.Version = "1"
 
 	for _, e := range os.Environ() {
 		pair := strings.Split(e, "=")
 		log.Println(pair)
-		if pair[0] == "CURRENT_VERSION_ID"{
+		if pair[0] == "CURRENT_VERSION_ID" {
 			appdata.Version = pair[1]
 			break
 		}
