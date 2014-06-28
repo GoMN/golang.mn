@@ -43,6 +43,7 @@ body {
     -webkit-flex-direction: row;
     flex-direction: row;
     margin: 0 auto;
+    background: url('/static/images/gopher.png') no-repeat left 40px;
 }
 
 .app-bar.open,
@@ -225,7 +226,6 @@ main {
         padding: 0 16px;
         box-sizing: border-box;
         /*background-color: #600006*/
-        background: url('/static/images/gopher.png') no-repeat left 40px;
     }
 
     .app-bar .logo {
@@ -314,6 +314,7 @@ main {
 
     .app-bar-container {
         height: auto;
+        background-position: -100px 0px;
     }
 
     .app-bar-actions {

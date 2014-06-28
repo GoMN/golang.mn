@@ -1,4 +1,21 @@
 @import url(social.css);
+.metrics {
+  height: 604px;
+  padding-top: 82px;
+  position: relative; }
+  .metrics .subsection-title {
+    margin-top: 0; }
+  .metrics .metric {
+    height: 100%; }
+    .metrics .metric .container-medium {
+      height: 100%; }
+      .metrics .metric .container-medium #map-canvas {
+        height: 100%; }
+
+.metrics > .container {
+  position: absolute;
+  top: 0; }
+
 body {
   color: #600006 !important;
   font-family: helvetica, arial, sans-serif; }
