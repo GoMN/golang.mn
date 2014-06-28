@@ -10,7 +10,7 @@
         <div class="container-medium">
             <ul class="featured-list">
                 <li data-ng-repeat="$member in ctrl.members" shadow class="featured-list__item clear">
-                    <div class="container-small">
+                    <div class="container-small" data-ng-class="'member-' + $member.id">
                         <div class="featured-list__content g--half">
                             <h3>{{ $index + 1 }} - {{ $member.name }}</h3>
 

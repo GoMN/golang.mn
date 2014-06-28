@@ -22,12 +22,10 @@
           .state('members', {
               url: "/members",
               templateUrl: "/static/scripts/members/members-tmpl.html"
-              //controller: $app.members.Members
           })
           .state('metrics', {
               url: "/metrics",
               templateUrl: "/static/scripts/metrics/metrics-tmpl.html"
-              //controller: $app.metrics.Metrics
           });
     }]);
 
@@ -39,7 +37,6 @@
               if (!fromState.name) {
                   //cancel state change?
               }
-              console.log('state changing');
           });
     }];
 

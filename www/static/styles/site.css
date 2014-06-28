@@ -24,16 +24,19 @@ body > footer {
   body > footer .footer-domain {
     font-size: 1.1em; }
 
-.members .featured-list__img img {
+.members .featured-list__item .featured-list__img img {
+  height: auto; }
+.members .featured-list__item .member-152346232 .featured-list__img img,
+.members .featured-list__item .member-32783162 .featured-list__img img {
   transform: scaleY(1);
   -webkit-transform: scaleY(1);
-  transition: all 1.7s ease-in-out;
-  height: auto; }
+  transition: all 1.7s ease-in-out; }
 
 .members .featured-list__item:hover {
   overflow: hidden; }
 
-.members .featured-list__item:hover .featured-list__img img.member-image {
+.members .featured-list__item:hover .member-152346232 .featured-list__img img.member-image,
+.members .featured-list__item:hover .member-32783162 .featured-list__img img.member-image {
   transform: scale(1.1);
   -webkit-transform: scale(1.1); }
 

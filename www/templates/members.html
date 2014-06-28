@@ -12,7 +12,7 @@
             <ul class="featured-list">
                 {{ range $index, $member := .Members}}
                 <li class="featured-list__item clear">
-                    <div class="container-small">
+                    <div class="container-small member-{{ $member.ID }}">
                         <div class="featured-list__content g--half">
                             <h3>{{ addint $index 1 }} - {{ $member.Name}}</h3>
 

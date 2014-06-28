@@ -36,13 +36,22 @@ body > footer {
 }
 
 //override
-.members .featured-list__img {
-    img {
-        transform: scaleY(1);
-        -webkit-transform: scaleY(1);
-        //transition: all 0.7s ease-in-out;
-        transition: all 1.7s ease-in-out;
-        height: auto;
+.members .featured-list__item {
+    .featured-list__img {
+        img {
+            height: auto;
+        }
+    }
+    // set up some trolling
+    .member-152346232,
+    .member-32783162 {
+        .featured-list__img {
+            img {
+                transform: scaleY(1);
+                -webkit-transform: scaleY(1);
+                transition: all 1.7s ease-in-out;
+            }
+        }
     }
 }
 
@@ -50,11 +59,16 @@ body > footer {
     overflow: hidden;
 }
 
-.members .featured-list__item:hover .featured-list__img {
-    //    overflow: visible;
-    img.member-image {
-        transform: scale(1.1);
-        -webkit-transform: scale(1.1);
+.members .featured-list__item:hover {
+    // activate trolling
+    .member-152346232,
+    .member-32783162 {
+        .featured-list__img {
+            img.member-image {
+                transform: scale(1.1);
+                -webkit-transform: scale(1.1);
+            }
+        }
     }
 }
 
@@ -63,9 +77,11 @@ body > footer {
         text-shadow: 1px 1px #aaa;
     }
 }
-.featured-spotlight .cta--secondary, .featured-spotlight .cta--secondary:visited  {
+
+.featured-spotlight .cta--secondary, .featured-spotlight .cta--secondary:visited {
     color: #fff;
 }
+
 .featured-spotlight .cta--secondary:hover {
     color: #f0f0f0;
 }
