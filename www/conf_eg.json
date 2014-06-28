@@ -1,0 +1,13 @@
+{
+    "Cache": {
+        "LocalTimeout": 60000,
+        "RemoteTimeout": 60000
+    },
+    "Meetup": {
+        "BaseUrl": "http://api.meetup.com/2/",
+        "Key": "YOUR_MEETUP_API_KEY"
+    },
+    "Maps": {
+        "Key": "YOUR_GOOGLE_MAPS_API"
+    }
+}

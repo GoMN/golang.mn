@@ -1,0 +1,14 @@
+.members .members-list {
+  list-style-type: none; }
+  .members .members-list .members-member {
+    min-height: 190px; }
+    .members .members-list .members-member .member-thumb {
+      margin: 0 5px;
+      width: 80px;
+      vertical-align: middle; }
+    .members .members-list .members-member .no-thumb {
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      height: 80px; }
+    .members .members-list .members-member .member-name {
+      font-size: 1.2em; }

@@ -1,0 +1,70 @@
+{{ define "body" }}
+<div class="featured-section">
+    <div class="container">
+        <a name="members"></a>
+
+        <h2 class="subsection-title">
+            Members
+        </h2>
+    </div>
+    <section class="members">
+        <div class="container-medium">
+            <ul class="featured-list">
+                {{ range $index, $member := .Members}}
+                <li class="featured-list__item clear">
+                    <div class="container-small">
+                        <div class="featured-list__content g--half">
+                            <h3>{{ addint $index 1 }} - {{ $member.Name}}</h3>
+
+                            <p>
+                                {{ $member.Bio }}
+                                <br>
+                                {{ $member.City }}
+                            </p>
+                            <ul class="socialicons" style="margin: 0;padding: 0">
+                                {{ if $member.Other.Twitter.Identifier }}
+                                <li>
+                                    <a class="twitter" target="_blank" href="http://twitter.com/{{ $member.Other.Twitter.Identifier }}"></a>
+                                </li>
+                                {{ end }}
+                                {{ if $member.Other.Linkedin.Identifier }}
+                                <li>
+                                    <a class="linkedin" target="_blank" href="{{ $member.Other.Linkedin.Identifier }}"></a></li>
+                                {{ end }}
+                                {{ if $member.Other.Facebook.Identifier }}
+                                <li>
+                                    <a class="facebook" target="_blank" href="http://facebook.com/{{ $member.Other.Facebook.Identifier }}"></a></li>
+                                {{ end }}
+                                {{ if $member.Other.Tumblr.Identifier }}
+                                <li>
+                                    <a class="tumblr" target="_blank" href="{{ $member.Other.Tumblr.Identifier }}"></a>
+                                </li>
+                                {{ end }}
+                                {{ if $member.Other.Flickr.Identifier }}
+                                <li><a class="flickr" target="_blank"></a></li>
+                                {{ end }}
+                            </ul>
+                            <p>
+                            <a target="_blank" href="{{ $member.Link }}" class="cta--primary">View More</a>
+                            </p>
+                        </div>
+                        <div class="featured-list__img-wrapper g--half g--last">
+                            <div class="featured-list__img">
+                                {{ if $member.Photo.Full }}
+                                <a target="_blank" href="{{ $member.Link }}">
+                                    <img src="{{ $member.Photo.Full }}" alt="small image">
+                                </a>
+                                {{ else }}
+                                <img src="/static/images/gopher.png"
+                                     alt="small image placeholder example">
+                                {{ end }}
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {{ end }}
+            </ul>
+        </div>
+    </section>
+</div>
+{{ end }}

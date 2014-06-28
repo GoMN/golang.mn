@@ -1,0 +1,72 @@
+{{ define "groups" }}
+<div class="group-plots">
+    {{ $months := .Report.Calendar.Months }}
+    {{ range $i, $month := $months }}
+    <div>
+        {{ if $month.Name }}
+        <h4>{{ $month.Name }}</h4>
+        <table class="calendar-table">
+            <thead class="calendar-header">
+            <th>sun</th>
+            <th>mon</th>
+            <th>tue</th>
+            <th>wed</th>
+            <th>thur</th>
+            <th>fri</th>
+            <th>sat</th>
+            </thead>
+            <tbody>
+            {{ range $k, $day := $month.Days }}
+            {{ if eq $day.RowIdx 0 }}
+            {{ if ne $day.Weekday "" }}
+            <tr class="calendar-row">
+                {{ end}}
+                {{ end }}
+                <td class="calendar-day score-{{ $day.Score }}">
+                    {{ $day.Number }}
+                    <ul>
+                        {{ range $j, $group := $day.Data }}
+                            <li>{{ $group.Name }}</li>
+                        {{ end }}
+                    </ul>
+                </td>
+                {{ if eq $day.RowIdx 6}}
+            </tr>
+            {{ end }}
+            {{ end }}
+            </tbody>
+        </table>
+        {{ end }}
+    </div>
+    {{ end }}
+
+    <h3>group plots</h3>
+    <ul class="group-list">
+        {{ $report := .Report}}
+        {{ range $key, $groups := $report.OtherGroupPlots }}
+        <li>
+            {{ $key.Formatted }} - {{ len $groups }}
+            <ul>
+                {{ range $i, $cg := $groups }}
+                <li>{{ $i }} - {{ $cg.Name }}</li>
+                {{ end }}
+            </ul>
+        </li>
+        {{ end }}
+    </ul>
+</div>
+<div class="groups">
+    <h3>other groups</h3>
+    <ul class="group-list">
+        {{ range $index, $group := .Groups}}
+        <li>
+            {{ $group.Name }}
+            -
+            {{ $group.NextEvent.Name }}
+            -
+            {{ $group.NextEvent.FormattedTime }}
+        </li>
+        {{ end }}
+    </ul>
+</div>
+{{ end }}

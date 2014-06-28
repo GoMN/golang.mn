@@ -1,0 +1,117 @@
+{{ define "layout" }}
+<!DOCTYPE html>
+<html ng-app="$app">
+<head lang="en">
+    <meta charset="utf-8">
+    <meta name="description" content="Site for Golang.MN.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>{{ .Title }}</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Web Starter Kit">
+
+    <!-- iOS icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="/static/images/touch/apple-touch-icon-144x144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+          href="/static/images/touch/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+          href="/static/images/touch/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/static/images/touch/apple-touch-icon-57x57-precomposed.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="/static/images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <!-- Generic Icon -->
+    <link rel="shortcut icon" href="/static/images/icons/favicon.png?v=0.1">
+
+    <!-- SEO: If mobile URL is different from desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/">
+    -->
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ .MapsKey }}"></script>
+
+    <!-- Chrome Add to Homescreen -->
+    <link rel="shortcut icon" sizes="196x196" href="/static/images/touch/touch-icon-196x196.png">
+
+    <link rel="stylesheet" href="/static/styles/h5bp.css">
+    <link rel="stylesheet" href="/static/styles/components/components.css">
+    <link rel="stylesheet" href="/static/styles/main.css">
+    <link href="/static/styles/site.css" rel="stylesheet">
+
+</head>
+<body data-ng-controller="$app.App">
+<header class="app-bar promote-layer">
+    <div class="app-bar-container">
+        <button class="menu"><img src="/static/images/hamburger.svg" alt="menu"></button>
+        <h1 class="logo">
+            {{ .Title }}
+        </h1>
+        <section class="app-bar-actions">
+            <!-- Put App Bar Buttons Here -->
+        </section>
+    </div>
+</header>
+
+<nav class="navdrawer-container promote-layer" shadow>
+    <h4>Navigation</h4>
+    <ul>
+        <li><a href="/">home</a></li>
+        <li><a href="/members">members</a></li>
+        <li><a href="/metrics">metrics</a></li>
+        <li><a href="/about">about</a></li>
+        <li><a target="_blank" href="http://github.com/GoMN/www">source</a></li>
+    </ul>
+</nav>
+<main ui-view>
+    {{ template "body" $ }}
+</main>
+<footer-scripts>
+    <script src="/static/vendor/angular/angular.min.js"></script>
+    <script src="/static/vendor/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="/static/vendor/underscore/underscore.js"></script>
+    <!-- build:js /static/scripts/main.min.js -->
+    <script src="/static/scripts/main.js"></script>
+    <script src="/static/scripts/core.js"></script>
+    <script src="/static/scripts/app.js"></script>
+    <script src="/static/scripts/components/components-module.js"></script>
+    <script src="/static/scripts/home/home-module.js"></script>
+    <script src="/static/scripts/home/home-controller.js"></script>
+    <script src="/static/scripts/about/about-module.js"></script>
+    <script src="/static/scripts/about/about-controller.js"></script>
+    <script src="/static/scripts/members/members-module.js"></script>
+    <script src="/static/scripts/members/members-controller.js"></script>
+    <script src="/static/scripts/members/members-service.js"></script>
+    <script src="/static/scripts/metrics/metrics-module.js"></script>
+    <script src="/static/scripts/metrics/metrics-controller.js"></script>
+    <!-- endbuild -->
+    <script>
+        window.$app.bootstrap = {{ marshall .Bootstrap }};
+    </script>
+    <script>
+        (function (b, o, i, l, e, r) {
+            b.GoogleAnalyticsObject = l;
+            b[l] || (b[l] =
+              function () {
+                  (b[l].q = b[l].q || []).push(arguments)
+              });
+            b[l].l = +new Date;
+            e = o.createElement(i);
+            r = o.getElementsByTagName(i)[0];
+            e.src = '//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e, r)
+        }(window, document, 'script', 'ga'));
+        ga('create', 'UA-XXXXX-X');
+        ga('send', 'pageview');
+    </script>
+</footer-scripts>
+</body>
+</html>
+{{ end }}

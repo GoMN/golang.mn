@@ -1,0 +1,60 @@
+@import "../scripts/components/components";
+@import "social.css";
+
+body {
+    color: #600006 !important;
+    font-family: helvetica, arial, sans-serif;
+
+    a {
+        color: #ef9528;
+    }
+    a:hover {
+        color: #600006;
+    }
+}
+
+body > header .title {
+    font-size: 2.5em;
+}
+
+body > header .title:hover {
+    text-decoration: none;
+}
+
+body > header .logo {
+    height: 80px;
+    vertical-align: middle;
+}
+
+body > footer {
+    text-align: center;
+}
+
+//override
+.members .featured-list__img {
+    img {
+        transform: scaleY(1);
+        -webkit-transform: scaleY(1);
+        //transition: all 0.7s ease-in-out;
+        transition: all 1.7s ease-in-out;
+        height: auto;
+    }
+}
+
+.members .featured-list__item:hover {
+    overflow: hidden;
+}
+
+.members .featured-list__item:hover .featured-list__img {
+    //    overflow: visible;
+    img.member-image {
+        transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+    }
+}
+
+.featured-section:hover {
+    .subsection-title {
+        text-shadow: 1px 1px #aaa;
+    }
+}

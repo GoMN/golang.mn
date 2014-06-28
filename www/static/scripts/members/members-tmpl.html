@@ -1,0 +1,62 @@
+<div class="featured-section" ng-controller="$app.members.Members as ctrl">
+    <div class="container">
+        <a name="members"></a>
+
+        <h2 class="subsection-title">
+            Members
+        </h2>
+    </div>
+    <section class="members">
+        <div class="container-medium">
+            <ul class="featured-list">
+                <li data-ng-repeat="$member in ctrl.members" shadow class="featured-list__item clear">
+                    <div class="container-small">
+                        <div class="featured-list__content g--half">
+                            <h3>{{ $index + 1 }} - {{ $member.name }}</h3>
+
+                            <p>
+                                {{ $member.bio }}
+                                <br>
+                                {{ $member.city }}
+                            </p>
+                            <ul class="socialicons" style="margin: 0;padding: 0">
+                                <li data-ng-if="$member.other_services.twitter.identifier">
+                                    <a class="twitter" target="_blank"
+                                       data-ng-href="http://twitter.com/{{ $member.other_services.twitter.identifier }}"></a>
+                                </li>
+                                <li data-ng-if="$member.other_services.linkedin.identifier">
+                                    <a class="linkedin" target="_blank"
+                                       data-ng-href="{{ $member.other_services.linkedin.identifier }}"></a>
+                                </li>
+                                <li data-ng-if="$member.other_services.facebook.identifier">
+                                    <a class="facebook" target="_blank"
+                                       data-ng-href="http://facebook.com/{{ $member.other_services.facebook.identifier }}"></a>
+                                </li>
+                                <li data-ng-if="$member.other_services.tumblr.identifier">
+                                    <a class="tumblr" target="_blank"
+                                       data-ng-href="{{ $member.other_services.tumblr.identifier }}"></a>
+                                </li>
+                                <li data-ng-if="$member.other_services.flickr.identifier">
+                                    <a class="flickr" target="_blank"></a>
+                                </li>
+                            </ul>
+                            <p>
+                                <a target="_blank" data-ng-href="{{ $member.link }}" class="cta--primary">View More</a>
+                            </p>
+                        </div>
+                        <div class="featured-list__img-wrapper g--half g--last">
+                            <div class="featured-list__img">
+                                <a data-ng-if="$member.photo.photo_link" target="_blank" data-ng-href="{{ $member.link }}">
+                                    <img class="member-image" data-ng-src="{{ $member.photo.photo_link }}" alt="small image">
+                                </a>
+                                <img class="default-member-image" data-ng-if="!$member.photo.photo_link" src="/static/images/gopher.png"
+                                     alt="small image placeholder example">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {{ end }}
+            </ul>
+        </div>
+    </section>
+</div>

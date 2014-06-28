@@ -1,0 +1,22 @@
+{
+  "name": "golang.mn",
+  "version": "0.0.0",
+  "homepage": "https://github.com/GoMN/golang.mn",
+  "authors": [
+    "Brent Anderson <brentmn@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "www/static/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.18",
+    "angular-ui-router": "~0.2.10"
+  }
+}

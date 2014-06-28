@@ -21,3 +21,20 @@ _testmain.go
 
 *.exe
 *.test
+
+node_modules
+.sass-cache
+dist
+.tmp
+
+npm-debug.log
+
+www/static/vendor
+server/static/vendor
+
+www/www
+www/conf.json
+
+.idea
+.idea/*
+.DS_Store
