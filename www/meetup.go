@@ -58,7 +58,7 @@ type Other struct {
 	Facebook SocialInt `json:"facebook"`
 }
 
-/// json eoncoder could not decode an json int into a string...whoa?
+/// json eoncoder could not decode a json int into a string...whoa?
 type SocialInt struct {
 	Identifier int `json:"identifier"`
 }
