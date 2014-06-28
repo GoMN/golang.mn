@@ -29,7 +29,7 @@
     <meta name="msapplication-TileColor" content="#3372DF">
 
     <!-- Generic Icon -->
-    <link rel="shortcut icon" href="/static/images/icons/favicon.png?v=0.1">
+    <link rel="shortcut icon" href="/static/images/icons/favicon.png?v={{ .Version }}">
 
     <!-- SEO: If mobile URL is different from desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
     <!--
@@ -42,9 +42,9 @@
     <link rel="shortcut icon" sizes="196x196" href="/static/images/touch/touch-icon-196x196.png">
 
     <link rel="stylesheet" href="/static/styles/h5bp.css">
-    <link rel="stylesheet" href="/static/styles/components/components.css">
-    <link rel="stylesheet" href="/static/styles/main.css">
-    <link href="/static/styles/site.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles/components/components.css?v={{ .Version }}">
+    <link rel="stylesheet" href="/static/styles/main.css?v={{ .Version }}">
+    <link href="/static/styles/site.css?v={{ .Version }}" rel="stylesheet">
 
 </head>
 <body data-ng-controller="$app.App">

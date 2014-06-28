@@ -10,7 +10,7 @@ var (
 	config conf
 )
 
-func init() {
+func confInit() {
 	log.Println("loading configuration")
 	b, err := ioutil.ReadFile("conf.json")
 	if err != nil {
