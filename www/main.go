@@ -35,7 +35,7 @@ func staticHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func init() {
-	appdata.Title = "Go(lang)MN"
+	appdata.Title = "Go(lang)MN - Minnesota Go Language Meetup"
 	appdata.MapsKey = config.Maps.Key
 
 	http.HandleFunc("/", homeHandler)

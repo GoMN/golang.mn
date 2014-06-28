@@ -3,7 +3,7 @@
 <html ng-app="$app">
 <head lang="en">
     <meta charset="utf-8">
-    <meta name="description" content="Site for Golang.MN.">
+    <meta name="description" content="Go Language Meetup in Minneapolis, St. Paul, Twin Cities Minnesota">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
     <title>{{ .Title }}</title>
 
@@ -73,6 +73,9 @@
 <main ui-view>
     {{ template "body" $ }}
 </main>
+<footer>
+    <span class="footer-domain">Go(lang).mn</span> <span class="footer-year">2014</span>
+</footer>
 <footer-scripts>
     <script src="/static/vendor/angular/angular.min.js"></script>
     <script src="/static/vendor/angular-ui-router/release/angular-ui-router.min.js"></script>

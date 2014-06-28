@@ -18,7 +18,11 @@ body > header .logo {
   vertical-align: middle; }
 
 body > footer {
-  text-align: center; }
+  text-align: center;
+  line-height: 50px;
+  text-transform: lowercase; }
+  body > footer .footer-domain {
+    font-size: 1.1em; }
 
 .members .featured-list__img img {
   transform: scaleY(1);
@@ -35,3 +39,9 @@ body > footer {
 
 .featured-section:hover .subsection-title {
   text-shadow: 1px 1px #aaa; }
+
+.featured-spotlight .cta--secondary, .featured-spotlight .cta--secondary:visited {
+  color: #fff; }
+
+.featured-spotlight .cta--secondary:hover {
+  color: #f0f0f0; }
