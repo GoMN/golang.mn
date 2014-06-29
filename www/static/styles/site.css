@@ -1,25 +1,19 @@
 @import url(social.css);
-.metrics {
-  height: 604px;
-  padding-top: 82px;
-  position: relative; }
-  .metrics .subsection-title {
-    margin-top: 0; }
-  .metrics .metric {
-    height: 100%; }
-    .metrics .metric .container-medium {
-      height: 100%; }
-      .metrics .metric .container-medium #map-canvas {
-        height: 100%; }
+.home .featured-spotlight {
+  padding-bottom: 70px; }
 
-.metrics > .container {
-  position: absolute;
-  top: 0; }
+.members .featured-list {
+  padding-top: 20px; }
+
+.metrics .metric .container-medium {
+  padding: 30px 30px; }
+  .metrics .metric .container-medium #map-canvas {
+    height: 500px; }
 
 body {
   color: #600006 !important;
   font-family: helvetica, arial, sans-serif; }
-  body a {
+  body a, body a:visited, body a.cta--primary {
     color: #ef9528; }
   body a:hover {
     color: #600006; }

@@ -1,24 +1,16 @@
 .metrics {
-    height: 604px;
-    padding-top: 82px;
-    position: relative;
-
     .subsection-title {
-        margin-top: 0;
     }
 
     .metric {
-        height: 100%;
         .container-medium {
-            height: 100%;
+            padding: 30px 30px;
             #map-canvas {
-                height: 100%
+                height: 500px;
             }
         }
     }
 }
 
 .metrics > .container {
-    position: absolute;
-    top: 0;
 }
