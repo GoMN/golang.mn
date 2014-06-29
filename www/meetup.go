@@ -21,13 +21,14 @@ var (
 
 /// models
 type membersResult struct {
-	Results []Member `json:"results"`
+	Results []member `json:"results"`
 }
 type groupsResult struct {
 	Results []Group `json:"results"`
 }
 
-type Member struct{
+/// keep primary object private
+type member struct{
 	ID       int `json:"id"`
 	Joined   int64 `json:"joined"`
 	Bio      string `json:"bio"`
@@ -42,8 +43,20 @@ type Member struct{
 	Other    Other `json:"other_services"`
 }
 
+type Member struct{
+	ID       int `json:"id"`
+	Joined   int64 `json:"joined"`
+	Bio      string `json:"bio"`
+	Link     string `json:"link"`
+	Name     string `json:"name"`
+	City     string `json:"city"`
+	State    string `json:"state"`
+	Photo    Photo `json:"photo"`
+	Other    Other `json:"other_services"`
+}
+
 /// member sorting
-type ByJoined []Member
+type ByJoined []member
 
 func (a ByJoined) Len() int { return len(a) }
 func (a ByJoined) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
@@ -119,7 +132,7 @@ func (svc *meetupService) SetContext(c appengine.Context){
 	svc.context = c;
 }
 
-func (svc * meetupService) getMembers() ([]Member, error) {
+func (svc * meetupService) getMembers() ([]member, error) {
 	if meetup_key == ""{
 		initialize()
 	}

@@ -58,11 +58,13 @@ func (b *bootstrapper) initialize() error {
 		go func(boot *bootstrap, svc meetupService) {
 			defer wg.Done()
 			members, _ := svc.getMembers()
-			boot.Members = members
 
 			for _, m := range members {
+				boot.Members = append(boot.Members, Member{
+					m.ID, m.Joined, m.Bio, m.Link, m.Name, m.City, m.State, m.Photo, m.Other,
+				})
 				boot.MemberCoords = append(boot.MemberCoords, memberCoord{
-					m.Name,
+					"gopher",
 					m.Lat,
 					m.Lon,
 				})

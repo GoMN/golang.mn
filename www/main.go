@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"html/template"
-	"log"
 	"net/http"
 	"os"
 	"strings"
@@ -51,7 +50,6 @@ func init() {
 
 	for _, e := range os.Environ() {
 		pair := strings.Split(e, "=")
-		log.Println(pair)
 		if pair[0] == "CURRENT_VERSION_ID" {
 			appdata.Version = pair[1]
 			break
