@@ -29,6 +29,28 @@
           });
     }]);
 
+    module.factory('appInterceptor', ['$log', function ($log) {
+        return {
+            request: function (config) {
+                //version cache bust templates
+                var url = config.url;
+                if (url.indexOf('tmpl.html') > -1) {
+                    if (url.indexOf('?') > -1) {
+                        url += '&v=' + $app.bootstrap.version;
+                    } else {
+                        url += '?v=' + $app.bootstrap.version;
+                    }
+                    config.url = url;
+                }
+                return config;
+            }
+        };
+    }]);
+
+    module.config(['$httpProvider', function ($httpProvider) {
+        $httpProvider.interceptors.push('appInterceptor');
+    }]);
+
     $app.module = module;
 
     $app.App = ['$rootScope', function ($rootScope) {

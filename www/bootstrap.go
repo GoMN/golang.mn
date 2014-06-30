@@ -25,6 +25,7 @@ type bootstrapper struct{
 type bootstrap struct{
 	Members       []Member `json:"members"`
 	MemberCoords  []memberCoord `json:"member_coords"`
+	Version       string `json:"version"`
 }
 type memberCoord struct {
 	Title string `json:"title"`
@@ -54,6 +55,7 @@ func (b *bootstrapper) initialize() error {
 		b.Bootstrap = test
 	}else {
 		log.Println("bootstrap reinitializing")
+		b.Bootstrap.Version = appdata.Version
 		wg.Add(1)
 		go func(boot *bootstrap, svc meetupService) {
 			defer wg.Done()

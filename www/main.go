@@ -10,14 +10,14 @@ import (
 )
 
 type Page struct {
-	Bootstrap bootstrap
-	Title     string
-	Subtitle  string
-	Members   []Member
-	Groups    []Group
-	MapsKey   string
-	Version   string
-	Year      int
+	Bootstrap bootstrap `json:"bootstrap"`
+	Title     string `json:"title"`
+	Subtitle  string `json:"subtitle"`
+	Members   []Member `json:"members"`
+	Groups    []Group `json:"groups"`
+	MapsKey   string `json:"mapsKey"`
+	Year      int `json:"year"`
+	Version   string `json:version`
 }
 
 func addInt(num int, num2 int) int {
@@ -45,7 +45,8 @@ func init() {
 	appdata.Title = "Go(lang)MN"
 	appdata.Subtitle = "Minnesota Go Language Meetup"
 	appdata.MapsKey = config.Maps.Key
-	appdata.Version = "1.0.2"
+	// TODO: replace with proper versioning
+	appdata.Version = "1.0.2-" + time.Now().String()
 	appdata.Year = time.Now().Year()
 
 	for _, e := range os.Environ() {
