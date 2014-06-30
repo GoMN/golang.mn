@@ -1,0 +1,19 @@
+<calendar-day>
+    <div class="harness">
+        <div class="tooltip" ng-show="day.show">
+            <ol ng-if="day.events.length">
+                <li ng-repeat="event in day.events">
+                    <a target="_blank" ng-href="http://meetup.com/{{ event.groupURLName }}/events/{{ event.id }}" title="{{ event.name }}">
+                        {{ event.groupName }}
+                    </a>
+                </li>
+            </ol>
+            <p ng-if="!day.events.length">
+                no other events
+            </p>
+        </div>
+    </div>
+    <span class="day-number">
+   {{ day.number }}
+    </span>
+</calendar-day>

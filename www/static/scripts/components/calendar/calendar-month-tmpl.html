@@ -1,0 +1,26 @@
+<calendar-month>
+    <h3>{{ month.name }}</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Sun</th>
+            <th>Mon</th>
+            <th>Tue</th>
+            <th>Wed</th>
+            <th>Thu</th>
+            <th>Fri</th>
+            <th>Sat</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="row in rows(month) track by $index">
+            <td class="calendar-day calendar-heat {{ 'calendar-heat-' + day.events.length}}"
+                ng-repeat="day in row.days track by $index"
+                ng-class="{'history':day.history, 'empty':day.empty}"
+                ng-mouseover="day.show = !day.history && !day.empty && true" ng-mouseout="day.show= false">
+                <ng-include src="'/static/scripts/components/calendar/calendar-day-tmpl.html'"></ng-include>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</calendar-month>

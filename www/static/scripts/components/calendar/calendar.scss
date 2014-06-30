@@ -1,0 +1,75 @@
+.calendar {
+    .calendar-heat {
+        background-color: red;
+    }
+    .calendar-heat-0, .calendar-heat- {
+        background-color: darkgreen;
+    }
+    .calendar-heat-1 {
+        background-color: green;
+    }
+    .calendar-heat-2 {
+        background-color: greenyellow;
+    }
+    .calendar-heat-3 {
+        background-color: greenyellow;
+    }
+    .calendar-heat-4 {
+        background-color: #ffff00;
+    }
+    .calendar-heat-5 {
+        background-color: yellow;
+    }
+    .calendar-heat-6 {
+        background-color: #ffff00;
+    }
+    .calendar-heat-7 {
+        background-color: orange;
+    }
+    .calendar-heat-8 {
+        background-color: darkorange;
+    }
+    .calendar-heat-9 {
+        background-color: orangered;
+    }
+    .calendar-heat-10 {
+        background-color: darkred;
+    }
+    .empty {
+        background-color: gray;
+    }
+    .history {
+        background-color: #CCC;
+    }
+
+    .harness {
+        height: 0px;
+        width: auto;
+        position: relative;
+        overflow: visible;
+        z-index: 1;
+        .tooltip {
+            position: absolute;
+            background-color: #f0f0f0;
+            border: 1px solid #999;
+            z-index: 999;
+            width: auto;
+            padding: 15px;
+            ol, p {
+                padding: 0px;
+                font-size: .9em;
+                margin: 0px;
+                li {
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    padding-left: 25px;
+                    margin: 0px;
+
+                    a{
+                       text-decoration: none;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -77,8 +77,9 @@ func (b *bootstrapper) initialize() error {
 					m.Lat,
 					m.Lon,
 				})
-				boot.Calendar = svc.getMembersCalendar(boot.Members)
 			}
+
+			boot.Calendar = svc.getMembersCalendar(boot.Members)
 
 		}(&b.Bootstrap, meetupSvc)
 

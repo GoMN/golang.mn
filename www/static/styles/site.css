@@ -1,4 +1,57 @@
 @import url(social.css);
+.calendar .calendar-heat {
+  background-color: red; }
+.calendar .calendar-heat-0, .calendar .calendar-heat- {
+  background-color: darkgreen; }
+.calendar .calendar-heat-1 {
+  background-color: green; }
+.calendar .calendar-heat-2 {
+  background-color: greenyellow; }
+.calendar .calendar-heat-3 {
+  background-color: greenyellow; }
+.calendar .calendar-heat-4 {
+  background-color: #ffff00; }
+.calendar .calendar-heat-5 {
+  background-color: yellow; }
+.calendar .calendar-heat-6 {
+  background-color: #ffff00; }
+.calendar .calendar-heat-7 {
+  background-color: orange; }
+.calendar .calendar-heat-8 {
+  background-color: darkorange; }
+.calendar .calendar-heat-9 {
+  background-color: orangered; }
+.calendar .calendar-heat-10 {
+  background-color: darkred; }
+.calendar .empty {
+  background-color: gray; }
+.calendar .history {
+  background-color: #CCC; }
+.calendar .harness {
+  height: 0px;
+  width: auto;
+  position: relative;
+  overflow: visible;
+  z-index: 1; }
+  .calendar .harness .tooltip {
+    position: absolute;
+    background-color: #f0f0f0;
+    border: 1px solid #999;
+    z-index: 999;
+    width: auto;
+    padding: 15px; }
+    .calendar .harness .tooltip ol, .calendar .harness .tooltip p {
+      padding: 0px;
+      font-size: .9em;
+      margin: 0px; }
+      .calendar .harness .tooltip ol li, .calendar .harness .tooltip p li {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        padding-left: 25px;
+        margin: 0px; }
+        .calendar .harness .tooltip ol li a, .calendar .harness .tooltip p li a {
+          text-decoration: none; }
+
 .home .featured-spotlight {
   padding-bottom: 70px; }
 
