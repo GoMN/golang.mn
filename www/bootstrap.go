@@ -4,13 +4,19 @@ import (
 	"appengine"
 	"log"
 	"net/http"
+	"strconv"
 	"sync"
+	"text/template"
 	"time"
 )
 
 var (
-	boot      = bootstrapper{}
-	meetupSvc = meetupService{}
+	boot        = bootstrapper{}
+	meetupSvc   = meetupService{}
+	bootFuncMap = template.FuncMap{
+	"marshall": marshall, }
+	bootTmpl    = template.Must(template.New("bootstrap").Funcs(bootFuncMap).Parse("window.$app.bootstrap = {{ marshall . }};"))
+
 )
 
 const BOOTSTRAP_KEY = "bootstrap"
@@ -86,7 +92,7 @@ func (b *bootstrapper) initialize() error {
 		//cache this result
 		cache.SetGeneric(BOOTSTRAP_KEY, b.Bootstrap)
 		b.initialized = true
-		appdata.Bootstrap = boot.Bootstrap;
+
 		//fire and forget the cache timeout
 		go func(timeout int64) {
 			time.Sleep(time.Duration(timeout) * time.Millisecond)
@@ -95,6 +101,14 @@ func (b *bootstrapper) initialize() error {
 		}(config.Cache.LocalTimeout)
 	}
 	return nil
+}
+
+func bootstrapHandler(w http.ResponseWriter, r *http.Request) {
+	h := w.Header()
+	h.Set("Content-Type", "text/javascript")
+	e := 60 * 60 * 24
+	h.Set("Cache-Control", "max-age="+strconv.Itoa(e)+", must-revalidate")
+	bootTmpl.Execute(w, boot.Bootstrap)
 }
 
 func (b *bootstrapper) refresh() error {
