@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"html/template"
+	"log"
 	"net/http"
 	"os"
 	"strconv"
@@ -42,6 +43,7 @@ func staticHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func init() {
+	log.Println("starting up")
 	confInit()
 	appdata.Title = "Go(lang)MN"
 	appdata.Subtitle = "Minnesota Go Language Meetup"

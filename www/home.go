@@ -13,7 +13,6 @@ var (
 )
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
-	boot.Scope(r)
 	appdata.Members = boot.Bootstrap.Members
 	err := homeTmpls.Execute(w, appdata)
 	if err != nil {

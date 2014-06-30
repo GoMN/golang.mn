@@ -12,7 +12,6 @@ var (
 )
 
 func aboutHandler(w http.ResponseWriter, r *http.Request) {
-	boot.Scope(r)
 	err := aboutTmpls.Execute(w, appdata)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

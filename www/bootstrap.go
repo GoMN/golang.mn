@@ -39,6 +39,7 @@ type memberCoord struct {
 	Lon   float32 `json:"lon"`
 }
 
+
 func (b *bootstrapper) Scope(r *http.Request) {
 	b.context = appengine.NewContext(r)
 	if !b.initialized {
@@ -104,6 +105,7 @@ func (b *bootstrapper) initialize() error {
 }
 
 func bootstrapHandler(w http.ResponseWriter, r *http.Request) {
+	boot.Scope(r)
 	h := w.Header()
 	h.Set("Content-Type", "text/javascript")
 	e := 60 * 60 * 24
