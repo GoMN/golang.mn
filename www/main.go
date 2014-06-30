@@ -45,7 +45,7 @@ func init() {
 	appdata.Title = "Go(lang)MN"
 	appdata.Subtitle = "Minnesota Go Language Meetup"
 	appdata.MapsKey = config.Maps.Key
-	appdata.Version = "1.0.1.1"
+	appdata.Version = "1.0.2"
 	appdata.Year = time.Now().Year()
 
 	for _, e := range os.Environ() {
