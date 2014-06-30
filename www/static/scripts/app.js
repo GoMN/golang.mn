@@ -54,8 +54,11 @@
     $app.module = module;
 
     $app.App = ['$rootScope', function ($rootScope) {
+        $rootScope.state = {};
         $rootScope.$on('$stateChangeStart',
           function (event, toState, toParams, fromState, fromParams) {
+              $rootScope.state.route = toState.name;
+              console.log($rootScope.state);
               if (!fromState.name) {
                   //cancel state change?
               }

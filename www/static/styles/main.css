@@ -197,9 +197,12 @@ button.menu img {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-.navdrawer-container ul li a:focus {
+.navdrawer-container ul li a:focus{
     background-color: rgba(255, 255, 255, 0.3);
     outline: 0;
+}
+.navdrawer-container ul li a.active{
+    font-weight: 500;
 }
 
 .navdrawer-container ul li a:active {

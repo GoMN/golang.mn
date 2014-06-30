@@ -96,10 +96,10 @@
 <nav class="navdrawer-container promote-layer" shadow>
     <h4>golang.mn</h4>
     <ul>
-        <li><a href="/">home</a></li>
-        <li><a href="/members">members</a></li>
-        <li><a href="/metrics">metrics</a></li>
-        <li><a href="/about">about</a></li>
+        <li><a ng-class="state.route=='home' && 'active'" href="/">home</a></li>
+        <li><a ng-class="state.route=='members' && 'active'" href="/members">members</a></li>
+        <li><a ng-class="state.route=='metrics' && 'active'" href="/metrics">metrics</a></li>
+        <li><a ng-class="state.route=='about' && 'active'" href="/about">about</a></li>
         <li><a target="_blank" href="http://github.com/GoMN/www">source</a></li>
     </ul>
 </nav>
