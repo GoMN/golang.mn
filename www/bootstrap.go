@@ -31,6 +31,7 @@ type bootstrapper struct{
 type bootstrap struct{
 	Members       []Member `json:"members"`
 	MemberCoords  []memberCoord `json:"member_coords"`
+	Calendar      Calendar `json:"calendar"`
 	Version       string `json:"version"`
 }
 type memberCoord struct {
@@ -38,7 +39,6 @@ type memberCoord struct {
 	Lat   float32 `json:"lat"`
 	Lon   float32 `json:"lon"`
 }
-
 
 func (b *bootstrapper) Scope(r *http.Request) {
 	b.context = appengine.NewContext(r)
@@ -77,15 +77,17 @@ func (b *bootstrapper) initialize() error {
 					m.Lat,
 					m.Lon,
 				})
+				boot.Calendar = svc.getMembersCalendar(boot.Members)
 			}
 
 		}(&b.Bootstrap, meetupSvc)
 
-		wg.Add(1)
-		go func(boot *bootstrap) {
-			defer wg.Done()
-
-		}(&b.Bootstrap)
+//		wg.Add(1)
+//		go func(boot *bootstrap) {
+//			defer wg.Done()
+//			//boot.Calendar =
+//
+//		}(&b.Bootstrap)
 
 		//wait for everything to bootstrap or fail
 		wg.Wait()

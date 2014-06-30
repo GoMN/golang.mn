@@ -61,6 +61,7 @@ type ByJoined []member
 func (a ByJoined) Len() int { return len(a) }
 func (a ByJoined) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
 func (a ByJoined) Less(i, j int) bool { return a[i].Joined < a[j].Joined }
+
 /// end sorting
 
 type Other struct {
@@ -79,6 +80,7 @@ type SocialInt struct {
 type Social struct {
 	Identifier string `json:"identifier"`
 }
+
 /// end whoa
 
 type Photo struct{
@@ -102,9 +104,38 @@ type Group struct {
 type Event struct{
 	ID           string `json:"id"`
 	Name         string `json:"name"`
-	Timestamp    int64 `json:"time"`
+	Timestamp    int `json:"time"`
 	Date         time.Time
 	FromNow      int64 `json:"utc_offset"`
+}
+
+/// event sorting
+type ByTimestamp []Event
+
+func (a ByTimestamp) Len() int { return len(a) }
+func (a ByTimestamp) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+func (a ByTimestamp) Less(i, j int) bool { return a[i].Timestamp < a[j].Timestamp }
+
+/// end sorting
+
+type Calendar struct{
+	Events []Event
+}
+
+func (svc * meetupService) getMembersCalendar(members []Member) Calendar {
+	c := Calendar{}
+	var ids []int
+	for _, m := range members {
+		ids = append(ids, m.ID)
+	}
+	groups, _ := svc.getMemberGroups(ids)
+
+	for _, g := range groups {
+		c.Events = append(c.Events, g.NextEvent)
+	}
+
+	sort.Sort(ByTimestamp(c.Events))
+	return c
 }
 
 /// called on module initialization
@@ -112,7 +143,7 @@ func init() {
 	initialize()
 }
 
-func initialize(){
+func initialize() {
 	log.Println("configuring meetup service")
 	url_base = config.Meetup.BaseUrl
 	meetup_key = config.Meetup.Key
@@ -124,16 +155,16 @@ func initialize(){
 ///
 
 type meetupService struct{
-	context appengine.Context
+	context     appengine.Context
 	HttpRequest http.Request
 }
 
-func (svc *meetupService) SetContext(c appengine.Context){
+func (svc *meetupService) SetContext(c appengine.Context) {
 	svc.context = c;
 }
 
 func (svc * meetupService) getMembers() ([]member, error) {
-	if meetup_key == ""{
+	if meetup_key == "" {
 		initialize()
 	}
 
@@ -143,8 +174,7 @@ func (svc * meetupService) getMembers() ([]member, error) {
 
 	client := urlfetch.Client(svc.context)
 
-	resp, err :=  client.Get(url)
-	//resp, err := http.Get(url)
+	resp, err := client.Get(url)
 
 	if err != nil {
 		log.Fatal(err)
@@ -161,15 +191,14 @@ func (svc * meetupService) getMembers() ([]member, error) {
 }
 
 func (svc * meetupService) getMember(id int) (*[]byte, error) {
-	if meetup_key == ""{
+	if meetup_key == "" {
 		initialize()
 	}
 	url := url_base + "member/" + strconv.Itoa(id) + "?" + url_suffix
 
 	client := urlfetch.Client(svc.context)
 
-	resp, err :=  client.Get(url)
-	//resp, err := http.Get(url)
+	resp, err := client.Get(url)
 
 	if err != nil {
 		log.Fatal(err)
@@ -186,7 +215,7 @@ func (svc * meetupService) getMember(id int) (*[]byte, error) {
 }
 
 func (svc * meetupService) getMemberGroups(ids []int) ([]Group, error) {
-	if meetup_key == ""{
+	if meetup_key == "" {
 		initialize()
 	}
 	var strids []string
@@ -197,8 +226,7 @@ func (svc * meetupService) getMemberGroups(ids []int) ([]Group, error) {
 
 	client := urlfetch.Client(svc.context)
 
-	resp, err :=  client.Get(url)
-	//resp, err := http.Get(url)
+	resp, err := client.Get(url)
 
 	if err != nil {
 		log.Fatal(err)
