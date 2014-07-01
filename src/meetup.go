@@ -3,6 +3,7 @@ package main
 import (
 	"appengine"
 	"appengine/urlfetch"
+	"sync"
 	"io/ioutil"
 	"encoding/json"
 	"log"
@@ -196,7 +197,7 @@ func (svc * meetupService) getMembersCalendar(members []Member) (Calendar, error
 	}
 	groups, err := svc.getMemberGroups(ids)
 
-	if err != nil{
+	if err != nil {
 		log.Printf("error: retrieving member groups: %v\n", err)
 		return c, err
 	}
@@ -296,6 +297,10 @@ func (svc * meetupService) getMember(id int) (*[]byte, error) {
 }
 
 func (svc * meetupService) getMemberGroups(ids []int) ([]Group, error) {
+	totalGroups := groupsResult{}
+	var err error
+	max := 40
+	var wg sync.WaitGroup
 	if meetup_key == "" {
 		initialize()
 	}
@@ -303,19 +308,34 @@ func (svc * meetupService) getMemberGroups(ids []int) ([]Group, error) {
 	for _, value := range ids {
 		strids = append(strids, strconv.Itoa(value))
 	}
-	url := url_base + "groups/?member_id=" + strings.Join(strids, ",") + "&fields=next_event&" + url_suffix
 
-	client := urlfetch.Client(svc.context)
+	l := len(strids) / max
 
-	resp, err := client.Get(url)
+	for i := 0; i < l; i +=1 {
+		wg.Add(1)
+		num := max
+		if (max*i)+40 > len(strids) {
+			num = len(strids)-1
+		}
+		cids := strids[max*i:num]
+		go func(g *groupsResult, ids []string) {
+			defer wg.Done()
+			url := url_base + "groups/?member_id=" + strings.Join(ids, ",") + "&fields=next_event&" + url_suffix
+			client := urlfetch.Client(svc.context)
+			resp, err := client.Get(url)
+			var gr groupsResult
+			err = json.NewDecoder(resp.Body).Decode(&gr)
+			if err != nil{
+				log.Println("error retrieving groups", err)
+			}else{
+				g.Results = append(g.Results, gr.Results...)
+			}
+		}(&totalGroups, cids)
 
-	if err != nil {
-		return []Group{}, err
 	}
+	wg.Wait()
 
-	var gr groupsResult
-	err = json.NewDecoder(resp.Body).Decode(&gr)
+	return totalGroups.Results, err
 
 
-	return gr.Results, err
 }

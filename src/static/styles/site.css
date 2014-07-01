@@ -107,9 +107,9 @@
 .members .featured-list {
   padding-top: 20px; }
 
-.metrics .metric .container-medium {
+.metrics .locations .container-medium {
   padding: 30px 30px; }
-  .metrics .metric .container-medium #map-canvas {
+  .metrics .locations .container-medium #map-canvas {
     height: 500px; }
 
 body {
