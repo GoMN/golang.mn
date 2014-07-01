@@ -32,6 +32,7 @@ type bootstrap struct{
 	Members       []Member `json:"members"`
 	MemberCoords  []memberCoord `json:"memberCoords"`
 	Calendar      Calendar `json:"calendar"`
+	Topics        []Topic `json:"topics"`
 	Version       string `json:"version"`
 }
 type memberCoord struct {
@@ -66,33 +67,46 @@ func (b *bootstrapper) initialize() error {
 		wg.Add(1)
 		go func(boot *bootstrap, svc meetupService) {
 			defer wg.Done()
+			var bg sync.WaitGroup
 			members, _ := svc.getMembers()
 
-			for _, m := range members {
-				boot.Members = append(boot.Members, Member{
-					m.ID, m.Joined, m.Bio, m.Link, m.Name, m.City, m.State, m.Photo, m.Other,
-				})
-				boot.MemberCoords = append(boot.MemberCoords, memberCoord{
-					"gopher",
-					m.Lat,
-					m.Lon,
-				})
-			}
+			bg.Add(1)
+			go func(b *bootstrap) {
+				defer bg.Done()
 
-			calendar, err := svc.getMembersCalendar(boot.Members)
-            boot.Calendar = calendar
-			if err != nil {
-				log.Printf("error building member calendar",err)
-			}
+				for _, m := range members {
+					b.Members = append(boot.Members, Member{
+						m.ID, m.Joined, m.Bio, m.Link, m.Name, m.City, m.State, m.Photo, m.Other,
+					})
+					b.MemberCoords = append(boot.MemberCoords, memberCoord{
+						"gopher",
+						m.Lat,
+						m.Lon,
+					})
+					b.Topics = append(b.Topics, m.Topics...)
+				}
+			}(boot)
+
+			bg.Add(1)
+			go func(b *bootstrap, s meetupService) {
+				defer bg.Done()
+				calendar, err := s.getMembersCalendar(boot.Members)
+				boot.Calendar = calendar
+				if err != nil {
+					log.Printf("error building member calendar", err)
+				}
+			}(boot, svc)
+
+			bg.Wait()
 
 		}(&b.Bootstrap, meetupSvc)
 
-//		wg.Add(1)
-//		go func(boot *bootstrap) {
-//			defer wg.Done()
-//			//boot.Calendar =
-//
-//		}(&b.Bootstrap)
+		//		wg.Add(1)
+		//		go func(boot *bootstrap) {
+		//			defer wg.Done()
+		//			//boot.Calendar =
+		//
+		//		}(&b.Bootstrap)
 
 		//wait for everything to bootstrap or fail
 		wg.Wait()

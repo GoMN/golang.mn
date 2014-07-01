@@ -1,29 +1,44 @@
-<div class="featured-section other-meetups" data-ng-controller="$app.metrics.Metrics as metrics">
-    <div class="container">
-        <a name="members-calendar"></a>
+<div data-ng-controller="$app.metrics.Metrics as metrics">
+    <div class="featured-section tags">
+        <div class="container">
+            <a name="members-tags"></a>
 
-        <h2 class="subsection-title">
-            Member's Other Meetups Heatmap Calendar
-        </h2>
-    </div>
-    <section class="metric">
-        <div class="container-medium">
-            <calendar></calendar>
+            <h2 class="subsection-title">
+                Member Interests
+            </h2>
         </div>
-    </section>
-</div>
-
-<div class="featured-section metrics" data-ng-controller="$app.metrics.Metrics as metrics">
-    <div class="container">
-        <a name="members-locations"></a>
-
-        <h2 class="subsection-title">
-            Approximate Member Locations
-        </h2>
+        <section class="metric">
+            <div class="container-medium">
+                <tags></tags>
+            </div>
+        </section>
     </div>
-    <section class="metric">
-        <div class="container-medium">
-            <div id="map-canvas"></div>
+    <div class="featured-section other-meetups">
+        <div class="container">
+            <a name="members-calendar"></a>
+
+            <h2 class="subsection-title">
+                Member's Other Meetups Heatmap Calendar
+            </h2>
         </div>
-    </section>
+        <section class="metric">
+            <div class="container-medium">
+                <calendar></calendar>
+            </div>
+        </section>
+    </div>
+    <div class="featured-section locations">
+        <div class="container">
+            <a name="members-locations"></a>
+
+            <h2 class="subsection-title">
+                Approximate Member Locations
+            </h2>
+        </div>
+        <section class="metric">
+            <div class="container-medium">
+                <div id="map-canvas"></div>
+            </div>
+        </section>
+    </div>
 </div>

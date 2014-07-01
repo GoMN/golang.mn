@@ -52,6 +52,55 @@
         .calendar .harness .tooltip ol li a, .calendar .harness .tooltip p li a {
           text-decoration: none; }
 
+.tags {
+  font-size: 2em;
+  padding: 0 20px;
+  text-align: center; }
+  .tags .tag-cloud-item {
+    display: inline-block;
+    padding: 0 3px;
+    line-height: .6em; }
+  .tags .tag-cloud-30,
+  .tags .tag-cloud-29 {
+    font-size: .9em;
+    margin-top: -5px; }
+  .tags .tag-cloud-28,
+  .tags .tag-cloud-27,
+  .tags .tag-cloud-26 {
+    font-size: .8em;
+    margin-top: 5px; }
+  .tags .tag-cloud-25,
+  .tags .tag-cloud-24,
+  .tags .tag-cloud-23 {
+    font-size: .7em; }
+  .tags .tag-cloud-22,
+  .tags .tag-cloud-21,
+  .tags .tag-cloud-20,
+  .tags .tag-cloud-19 {
+    font-size: .6em; }
+  .tags .tag-cloud-18,
+  .tags .tag-cloud-17,
+  .tags .tag-cloud-16,
+  .tags .tag-cloud-15 {
+    font-size: .5em; }
+  .tags .tag-cloud-14,
+  .tags .tag-cloud-13,
+  .tags .tag-cloud-12,
+  .tags .tag-cloud-11 {
+    font-size: .3em; }
+  .tags .tag-cloud-10,
+  .tags .tag-cloud-9,
+  .tags .tag-cloud-8,
+  .tags .tag-cloud-7,
+  .tags .tag-cloud-6 {
+    font-size: .2em; }
+  .tags .tag-cloud-5,
+  .tags .tag-cloud-4,
+  .tags .tag-cloud-3,
+  .tags .tag-cloud-2,
+  .tags .tag-cloud-1 {
+    display: none; }
+
 .home .featured-spotlight {
   padding-bottom: 70px; }
 

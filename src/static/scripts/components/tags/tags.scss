@@ -1,0 +1,58 @@
+.tags {
+    font-size: 2em;
+    padding: 0 20px;
+    text-align: center;
+    .tag-cloud-item {
+        display: inline-block;
+        padding: 0 3px;
+        line-height: .6em;
+    }
+    .tag-cloud-30,
+    .tag-cloud-29,{
+        font-size: .9em;
+        margin-top: -5px;
+    }
+    .tag-cloud-28,
+    .tag-cloud-27,
+    .tag-cloud-26,{
+        font-size: .8em;
+        margin-top: 5px;
+    }
+    .tag-cloud-25,
+    .tag-cloud-24,
+    .tag-cloud-23,{
+        font-size: .7em;
+    }
+    .tag-cloud-22,
+    .tag-cloud-21,
+    .tag-cloud-20,
+    .tag-cloud-19,{
+        font-size: .6em;
+    }
+    .tag-cloud-18,
+    .tag-cloud-17,
+    .tag-cloud-16,
+    .tag-cloud-15,{
+        font-size: .5em;
+    }
+    .tag-cloud-14,
+    .tag-cloud-13,
+    .tag-cloud-12,
+    .tag-cloud-11,{
+        font-size: .3em;
+    }
+    .tag-cloud-10,
+    .tag-cloud-9,
+    .tag-cloud-8,
+    .tag-cloud-7,
+    .tag-cloud-6,{
+        font-size: .2em;
+    }
+    .tag-cloud-5,
+    .tag-cloud-4,
+    .tag-cloud-3,
+    .tag-cloud-2,
+    .tag-cloud-1 {
+        display:none;
+    }
+}
