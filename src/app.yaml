@@ -1,5 +1,5 @@
 application: golang-mn
-version: 1
+version: 1-0
 runtime: go
 api_version: go1
 

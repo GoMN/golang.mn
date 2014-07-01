@@ -49,7 +49,7 @@ func init() {
 	appdata.Subtitle = "Minnesota Go Language Meetup"
 	appdata.MapsKey = config.Maps.Key
 	// TODO: replace with proper versioning
-	appdata.Version = "1.0.2-"+time.Now().String()
+	appdata.Version = "1.1.2-"+time.Now().String()
 	appdata.Year = time.Now().Year()
 
 	for _, e := range os.Environ() {

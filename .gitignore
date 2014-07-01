@@ -25,6 +25,7 @@ _testmain.go
 node_modules
 .sass-cache
 dist
+build
 .tmp
 
 npm-debug.log

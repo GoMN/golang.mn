@@ -145,7 +145,7 @@ type Day struct {
 
 func newCalendar(month time.Month, year int) Calendar {
 	c := Calendar{}
-	context := time.Date(year, month, 0, 0, 0, 0, 0, location).Local()
+	context := time.Date(year, month, 1, 0, 0, 0, 0, location).Local()
 	next := context.AddDate(0, 1, 0)
 
 	c.Months = append(c.Months, buildMonth(month, year))
@@ -154,6 +154,7 @@ func newCalendar(month time.Month, year int) Calendar {
 	return c
 }
 func buildMonth(month time.Month, year int) *Month {
+	log.Println("building month", month)
 	n := time.Now().Local()
 	m := Month{}
 	m.Name = month.String()
@@ -186,14 +187,19 @@ func (c *Calendar) plotCalendarEvent(e Event) {
 		}
 	}
 }
-func (svc * meetupService) getMembersCalendar(members []Member) Calendar {
+func (svc * meetupService) getMembersCalendar(members []Member) (Calendar, error) {
 	n := time.Now()
 	c := newCalendar(n.Month(), n.Year())
 	var ids []int
 	for _, m := range members {
 		ids = append(ids, m.ID)
 	}
-	groups, _ := svc.getMemberGroups(ids)
+	groups, err := svc.getMemberGroups(ids)
+
+	if err != nil{
+		log.Printf("error: retrieving member groups: %v\n", err)
+		return c, err
+	}
 
 	for _, g := range groups {
 		if g.NextEvent.Timestamp > 0 {
@@ -209,9 +215,9 @@ func (svc * meetupService) getMembersCalendar(members []Member) Calendar {
 			c.plotCalendarEvent(g.NextEvent)
 		}
 	}
-
+	log.Printf("success: found member groups: %v\n", len(groups))
 	sort.Sort(ByTimestamp(c.Events))
-	return c
+	return c, nil
 }
 
 /// called on module initialization

@@ -1,6 +1,6 @@
 (function ($app) {
     'use strict';
-    $app.home.Home = ['$http', function ($http) {
+    $app.home.Home = [function () {
 
     }];
 }(window.$app));

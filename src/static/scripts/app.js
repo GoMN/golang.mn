@@ -30,7 +30,7 @@
           });
     }]);
 
-    module.factory('appInterceptor', ['$log', function ($log) {
+    module.factory('appInterceptor', [function () {
         return {
             request: function (config) {
                 //version cache bust templates
@@ -57,7 +57,7 @@
     $app.App = ['$rootScope', function ($rootScope) {
         $rootScope.state = {};
         $rootScope.$on('$stateChangeStart',
-          function (event, toState, toParams, fromState, fromParams) {
+          function (event, toState, toParams, fromState) {
               $rootScope.state.route = toState.name;
               console.log($rootScope.state);
               if (!fromState.name) {

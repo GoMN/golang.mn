@@ -79,7 +79,11 @@ func (b *bootstrapper) initialize() error {
 				})
 			}
 
-			boot.Calendar = svc.getMembersCalendar(boot.Members)
+			calendar, err := svc.getMembersCalendar(boot.Members)
+            boot.Calendar = calendar
+			if err != nil {
+				log.Printf("error building member calendar",err)
+			}
 
 		}(&b.Bootstrap, meetupSvc)
 
