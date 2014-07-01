@@ -1,4 +1,5 @@
 (function($ng, $app){
+    'use strict';
     $app.members.MembersService = function(){
 
     };

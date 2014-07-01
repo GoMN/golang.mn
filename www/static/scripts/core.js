@@ -1,3 +1,6 @@
-window.$app = {
-    bootstrap: {}
-};
+(function(){
+    'use strict';
+    window.$app = {
+        bootstrap: {}
+    };
+}());

@@ -3,42 +3,42 @@
 <html ng-app="$app">
 <head lang="en">
     <meta charset="utf-8">
-    <meta name="keywords" content="USA,Minnesota,Minneapolis,Go,Gophers,group,club,event,community,meetup" />
-    <meta name="description" content="Go Language meetup in Minneapolis, St. Paul, Twin Cities Minnesota. A meetup group to discuss the Go Programming Language. (from golang.org) The Go programming language is an open source project to make programmers more productive." />
+    <meta name="keywords" content="USA,Minnesota,Minneapolis,Go,Gophers,group,club,event,community,meetup"/>
+    <meta name="description"
+          content="Go Language meetup in Minneapolis, St. Paul, Twin Cities Minnesota. A meetup group to discuss the Go Programming Language. (from golang.org) The Go programming language is an open source project to make programmers more productive."/>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
 
-    <meta name="ICBM" content="44.98,-93.27" />
-    <meta name="geo.position" content="44.98;-93.27" />
-    <meta name="geo.placename" content="Minneapolis, Minnesota, USA" />
-    <meta name="geo.region" content="US-MN" />
+    <meta name="ICBM" content="44.98,-93.27"/>
+    <meta name="geo.position" content="44.98;-93.27"/>
+    <meta name="geo.placename" content="Minneapolis, Minnesota, USA"/>
+    <meta name="geo.region" content="US-MN"/>
 
     <title>{{ .Title }}</title>
 
-    <meta name="twitter:card" value="summary" />
-    <meta name="twitter:site" value="@meetup" />
-    <meta property="og:site_name" content="Meetup" />
-    <meta name="twitter:app:id:iphone" content="375990038" />
-    <meta name="twitter:app:name:iphone" content="Meetup" />
+    <meta name="twitter:card" value="summary"/>
+    <meta name="twitter:site" value="@golangmn"/>
+    <meta property="og:site_name" content="GolangMN"/>
 
-    <meta property="og:title" content="GoMN" />
+    <meta property="og:title" content="GoMN"/>
 
-    <meta property="og:type" content="activity" />
+    <meta property="og:type" content="activity"/>
 
-    <meta property="og:description" content="Go Language meetup in Minneapolis, St. Paul, Twin Cities Minnesota. A meetup group to discuss the Go Programming Language. (from golang.org) The Go programming language is an open source project to make programmers more productive." />
+    <meta property="og:description"
+          content="Go Language meetup in Minneapolis, St. Paul, Twin Cities Minnesota. A meetup group to discuss the Go Programming Language. (from golang.org) The Go programming language is an open source project to make programmers more productive."/>
 
-    <meta name="twitter:url" content="http://golang.mn" />
+    <meta name="twitter:url" content="http://golang.mn"/>
 
-    <meta property="og:locality" content="Minneapolis" />
-    <meta property="og:country-name" content="us" />
+    <meta property="og:locality" content="Minneapolis"/>
+    <meta property="og:country-name" content="us"/>
 
-    <meta property="og:region" content="MN" />
+    <meta property="og:region" content="MN"/>
 
-    <meta property="og:postal-code" content="55401" />
+    <meta property="og:postal-code" content="55401"/>
 
-    <meta property="og:latitude" content="44.98" />
-    <meta property="og:longitude" content="-93.27" />
+    <meta property="og:latitude" content="44.98"/>
+    <meta property="og:longitude" content="-93.27"/>
 
-    <meta property="og:image" content="http://golang.mn/static/images/appenginegopher.png" />
+    <meta property="og:image" content="http://golang.mn/static/images/appenginegopher.png"/>
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -74,11 +74,12 @@
     <!-- Chrome Add to Homescreen -->
     <link rel="shortcut icon" sizes="196x196" href="/static/images/touch/touch-icon-196x196.png">
 
+    <!-- build:css ../static/styles/main.min.css -->
     <link rel="stylesheet" href="/static/styles/h5bp.css">
-    <link rel="stylesheet" href="/static/styles/components/components.css?v={{ .Version }}">
-    <link rel="stylesheet" href="/static/styles/main.css?v={{ .Version }}">
-    <link href="/static/styles/site.css?v={{ .Version }}" rel="stylesheet">
-
+    <link rel="stylesheet" href="/static/styles/components/components.css">
+    <link rel="stylesheet" href="/static/styles/main.css">
+    <link rel="stylesheet" href="/static/styles/site.css" rel="stylesheet">
+    <!-- endbuild -->
 </head>
 <body data-ng-controller="$app.App">
 <header class="app-bar promote-layer">
@@ -107,12 +108,15 @@
     {{ template "body" $ }}
 </main>
 <footer class="clear">
-    <span class="footer-domain">Go(lang).mn</span> &#8226; <span class="footer-subtitle">{{ .Subtitle }}</span> &#8226; <span class="footer-year">{{ .Year }}</span>
+    <span class="footer-domain">Go(lang).mn</span> &#8226; <span class="footer-subtitle">{{ .Subtitle }}</span> &#8226;
+    <span class="footer-year">{{ .Year }}</span>
 </footer>
 <footer-scripts>
-    <script src="/static/vendor/angular/angular.js"></script>
+    <!-- build:js ../static/scripts/vendor.min.js -->
+    <script src="/static/vendor/angular/angular.min.js"></script>
     <script src="/static/vendor/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <!-- build:js /static/scripts/main.min.js -->
+    <!-- endbuild -->
+    <!-- build:js ../static/scripts/main.min.js -->
     <script src="/static/scripts/main.js"></script>
     <script src="/static/scripts/core.js"></script>
     <script src="/static/scripts/app.js"></script>
@@ -128,12 +132,19 @@
     <script src="/static/scripts/metrics/metrics-module.js"></script>
     <script src="/static/scripts/metrics/metrics-controller.js"></script>
     <!-- endbuild -->
-    <script src="/bootstrap.js"></script>
+    <script src="/bootstrap.js?v={{ .Version }}"></script>
     <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+              m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
         ga('create', 'UA-52347583-1', 'auto');
         ga('send', 'pageview');

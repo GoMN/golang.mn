@@ -1,4 +1,5 @@
 (function ($ng, $app) {
+    'use strict';
     var module = $ng.module('$app', [
         'ui.router',
         '$app.components',
@@ -9,23 +10,23 @@
 
     module.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider) {
         $locationProvider.html5Mode(true);
-        $urlRouterProvider.otherwise("/");
+        $urlRouterProvider.otherwise('/');
         $stateProvider
           .state('home', {
-              url: "/",
-              templateUrl: "/static/scripts/home/home-tmpl.html"
+              url: '/',
+              templateUrl: '/static/scripts/home/home-tmpl.html'
           })
           .state('about', {
-              url: "/about",
-              templateUrl: "/static/scripts/about/about-tmpl.html"
+              url: '/about',
+              templateUrl: '/static/scripts/about/about-tmpl.html'
           })
           .state('members', {
-              url: "/members",
-              templateUrl: "/static/scripts/members/members-tmpl.html"
+              url: '/members',
+              templateUrl: '/static/scripts/members/members-tmpl.html'
           })
           .state('metrics', {
-              url: "/metrics",
-              templateUrl: "/static/scripts/metrics/metrics-tmpl.html"
+              url: '/metrics',
+              templateUrl: '/static/scripts/metrics/metrics-tmpl.html'
           });
     }]);
 

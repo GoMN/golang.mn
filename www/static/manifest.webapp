@@ -1,11 +1,11 @@
 {
   "version": "1.0.0",
   "name": "Web Starter Kit",
-  "launch_path": "/index.html",
+  "launch_path": "/",
   "description": "A front-end template that helps you build fast, modern mobile web apps.",
   "icons": {
-    "60": "/img/touch/touch-icon-60x60.png",
-    "128": "/img/touch/touch-icon-128x128.png"
+    "60": "/static/images/touch/touch-icon-60x60.png",
+    "128": "/static/images/touch/touch-icon-128x128.png"
   },
   "developer": {
     "name": "",

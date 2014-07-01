@@ -1,5 +1,5 @@
 (function ($ng, $app) {
-    var ROWS = 6;
+    'use strict';
     var d = function () {
         return {
             restrict: 'E',
@@ -20,21 +20,21 @@
                 }
 
                 $scope.rows = function (month) {
-                    var r, days, t, i;
+                    var r, rc, days, t, i;
                     days = empty.slice(0, month.startPos);
                     days = days.concat(month.days);
                     t = days.length;
                     rc = Math.ceil(t / 7);
                     r = rows.slice(0, rc);
                     for (i = 0; i < rc; i += 1) {
-                        r[i].days = days.slice(i * 7, (i * 7) + 7)
+                        r[i].days = days.slice(i * 7, (i * 7) + 7);
                     }
                     return r;
                 };
 
                 $scope.calendar = $app.bootstrap.calendar;
             }]
-        }
+        };
     };
 
     $app.components.calendar = d;

@@ -21,7 +21,10 @@
     "psi": "^0.0.4",
     "rimraf": "^2.2.8",
     "run-sequence": "^0.3.6",
-    "gulp-replace": "^0.3.0"
+    "gulp-replace": "^0.3.0",
+    "gulp-debug": "^0.3.0",
+    "glob": "^4.0.3",
+    "lodash": "^2.4.1"
   },
   "engines": {
     "node": ">=0.10.0"

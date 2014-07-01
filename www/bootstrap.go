@@ -30,7 +30,7 @@ type bootstrapper struct{
 ///models
 type bootstrap struct{
 	Members       []Member `json:"members"`
-	MemberCoords  []memberCoord `json:"member_coords"`
+	MemberCoords  []memberCoord `json:"memberCoords"`
 	Calendar      Calendar `json:"calendar"`
 	Version       string `json:"version"`
 }
