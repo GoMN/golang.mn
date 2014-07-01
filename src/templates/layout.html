@@ -76,9 +76,9 @@
 
     <!-- build:css ../static/styles/main.min.css -->
     <link rel="stylesheet" href="/static/styles/h5bp.css">
-    <link rel="stylesheet" href="/static/styles/components/components.css">
-    <link rel="stylesheet" href="/static/styles/main.css">
-    <link rel="stylesheet" href="/static/styles/site.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles/components/components.css?v={{ .Version }}">
+    <link rel="stylesheet" href="/static/styles/main.css?v={{ .Version }}">
+    <link rel="stylesheet" href="/static/styles/site.css?v={{ .Version }}" rel="stylesheet">
     <!-- endbuild -->
 </head>
 <body data-ng-controller="$app.App">
