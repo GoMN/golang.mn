@@ -6,46 +6,63 @@
         display: inline-block;
         padding: 0 3px;
         line-height: .6em;
+        position: relative;
     }
+    .tag-cloud-item:nth-child(odd) {
+        top: 5px;
+    }
+    .tag-cloud-item:nth-child(even) {
+        top: -5px;
+    }
+    .tag-cloud-item:nth-child(3n+3) {
+        top: 3px;
+        left: -2px;
+    }
+    .tag-cloud-item:nth-child(4n+4) {
+        top: -3px;
+        right: 2px;
+    }
+
     .tag-cloud-30,
-    .tag-cloud-29,{
+    .tag-cloud-29, {
         font-size: .9em;
         margin-top: -5px;
+        line-height: 1.3em;
     }
     .tag-cloud-28,
     .tag-cloud-27,
-    .tag-cloud-26,{
+    .tag-cloud-26, {
         font-size: .8em;
         margin-top: 5px;
     }
     .tag-cloud-25,
     .tag-cloud-24,
-    .tag-cloud-23,{
+    .tag-cloud-23, {
         font-size: .7em;
     }
     .tag-cloud-22,
     .tag-cloud-21,
     .tag-cloud-20,
-    .tag-cloud-19,{
+    .tag-cloud-19, {
         font-size: .6em;
     }
     .tag-cloud-18,
     .tag-cloud-17,
     .tag-cloud-16,
-    .tag-cloud-15,{
+    .tag-cloud-15, {
         font-size: .5em;
     }
     .tag-cloud-14,
     .tag-cloud-13,
     .tag-cloud-12,
-    .tag-cloud-11,{
+    .tag-cloud-11, {
         font-size: .3em;
     }
     .tag-cloud-10,
     .tag-cloud-9,
     .tag-cloud-8,
     .tag-cloud-7,
-    .tag-cloud-6,{
+    .tag-cloud-6, {
         font-size: .2em;
     }
     .tag-cloud-5,
@@ -53,6 +70,6 @@
     .tag-cloud-3,
     .tag-cloud-2,
     .tag-cloud-1 {
-        display:none;
+        display: none;
     }
 }

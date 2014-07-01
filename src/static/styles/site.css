@@ -59,11 +59,23 @@
   .tags .tag-cloud-item {
     display: inline-block;
     padding: 0 3px;
-    line-height: .6em; }
+    line-height: .6em;
+    position: relative; }
+  .tags .tag-cloud-item:nth-child(odd) {
+    top: 5px; }
+  .tags .tag-cloud-item:nth-child(even) {
+    top: -5px; }
+  .tags .tag-cloud-item:nth-child(3n+3) {
+    top: 3px;
+    left: -2px; }
+  .tags .tag-cloud-item:nth-child(4n+4) {
+    top: -3px;
+    right: 2px; }
   .tags .tag-cloud-30,
   .tags .tag-cloud-29 {
     font-size: .9em;
-    margin-top: -5px; }
+    margin-top: -5px;
+    line-height: 1.3em; }
   .tags .tag-cloud-28,
   .tags .tag-cloud-27,
   .tags .tag-cloud-26 {
