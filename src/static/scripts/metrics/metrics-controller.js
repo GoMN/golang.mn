@@ -1,13 +1,18 @@
 (function ($app, google) {
     'use strict';
     $app.metrics.Metrics = function () {
+        var disabled = true;
+
         function initialize() {
             var mapOptions = {
                 center: new google.maps.LatLng(44.9871011, -93.2717069),
-                zoom: 9
+                zoom: 9,
+                scrollwheel: false
             };
+
             var map = new google.maps.Map(document.getElementById('map-canvas'),
               mapOptions);
+
             addMarkers(map);
         }
 
