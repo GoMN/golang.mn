@@ -128,6 +128,9 @@
   .metrics .locations .container-medium #map-canvas {
     height: 500px; }
 
+.about {
+  padding-bottom: 20px; }
+
 body {
   color: #600006 !important;
   font-family: helvetica, arial, sans-serif; }
