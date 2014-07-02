@@ -313,8 +313,8 @@ func (svc * meetupService) getMemberGroups(ids []int) ([]Group, error) {
 
 	for i := 0; i < l; i +=1 {
 		wg.Add(1)
-		num := max
-		if (max*i)+40 > len(strids) {
+		num := (i * max) + max
+		if (num > (len(strids)-1)) {
 			num = len(strids)-1
 		}
 		cids := strids[max*i:num]
