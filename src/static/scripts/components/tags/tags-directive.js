@@ -32,7 +32,6 @@
                         cent[y - cidx] = cloud[i+1];
                         cidx +=1
                     }
-                    console.log(cent);
                     return cent;
                 }
             }]
