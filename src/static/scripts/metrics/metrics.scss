@@ -1,16 +1,17 @@
 .metrics {
-    .subsection-title {
+    .featured-section {
+        padding-bottom: 35px;
+        .subsection-title {
+            text-align: center;
+        }
     }
 
     .locations {
         .container-medium {
-            padding: 30px 30px;
+            padding: 20px 20px 0 20px;
             #map-canvas {
                 height: 500px;
             }
         }
     }
-}
-
-.metrics > .container {
 }
