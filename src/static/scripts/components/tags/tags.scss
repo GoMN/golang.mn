@@ -4,8 +4,9 @@
     text-align: center;
     .tag-cloud-item {
         display: inline-block;
-        padding: 0 3px;
+        font-size: 1em;
         line-height: .6em;
+        padding: 3px 3px;
         position: relative;
     }
     .tag-cloud-item:nth-child(odd) {
@@ -18,7 +19,7 @@
         top: 3px;
         left: -2px;
     }
-    .tag-cloud-item:nth-child(4n+4) {
+    .tag-cloud-item:nth-child(5n+5) {
         top: -3px;
         right: 2px;
     }

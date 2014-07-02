@@ -25,12 +25,14 @@
                         return a.count - b.count;
                     });
 
-                    var i = 0, l = cloud.length, h = Math.round(l / 2), y = (l - 1);
+                    var i = 0, l = cloud.length, h = Math.ceil(l / 2), y = (l - 1);
                     var cidx = 0;
                     for (i; cidx < h; i += 2) {
                         cent[cidx] = cloud[i];
-                        cent[y - cidx] = cloud[i+1];
-                        cidx +=1
+                        if (cidx !== (y - cidx)) {
+                            cent[y - cidx] = cloud[i + 1];
+                        }
+                        cidx += 1
                     }
                     return cent;
                 }
