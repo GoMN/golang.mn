@@ -20,7 +20,7 @@ type Page struct {
 func AppData() Page{
 	appdata := Page{}
 	appdata.Title = "Go(lang)MN"
-	appdata.Subtitle = "Mincnesota Go Language Meetup"
+	appdata.Subtitle = "Minnesota Go Language Meetup"
 	appdata.MapsKey = conf.Config.Maps.Key
 	// TODO: replace with proper versioning
 	appdata.Version = "1.1.2-"+time.Now().String()
