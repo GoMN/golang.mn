@@ -1,13 +1,13 @@
-package main
+package meetup
 
 import (
-	"appengine"
-	"appengine/urlfetch"
 	"sync"
 	"io/ioutil"
 	"encoding/json"
 	"log"
-	"net/http"
+	"services"
+	"services/conf"
+	"services/http"
 	"sort"
 	"strings"
 	"strconv"
@@ -15,6 +15,7 @@ import (
 )
 
 var (
+	httpSvc http.Httpr
 	location, locationErr = time.LoadLocation("America/Chicago")
 	url_base string
 	meetup_key string
@@ -42,18 +43,6 @@ type member struct{
 	State    string `json:"state"`
 	Photo    Photo `json:"photo"`
 	Topics   []Topic `json:"topics"`
-	Other    Other `json:"other_services"`
-}
-
-type Member struct{
-	ID       int `json:"id"`
-	Joined   int64 `json:"joined"`
-	Bio      string `json:"bio"`
-	Link     string `json:"link"`
-	Name     string `json:"name"`
-	City     string `json:"city"`
-	State    string `json:"state"`
-	Photo    Photo `json:"photo"`
 	Other    Other `json:"other_services"`
 }
 
@@ -112,113 +101,9 @@ type Event struct{
 	GroupID      int `json:"groupID"`
 	Timestamp    int `json:"time"`
 	Date         time.Time `json:"date"`
-	compareDate  time.Time
+	CompareDate  time.Time
 	FromNow      int64 `json:"utc_offset"`
 	YearDay      int
-}
-
-/// event sorting
-type ByTimestamp []*Event
-
-func (a ByTimestamp) Len() int { return len(a) }
-func (a ByTimestamp) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
-func (a ByTimestamp) Less(i, j int) bool { return a[i].Timestamp < a[j].Timestamp }
-
-/// end sorting
-
-type Calendar struct{
-	Months []*Month `json:"months"`
-	Events []*Event `json:"events"`
-}
-type Month struct {
-	Name     string `json:"name"`
-	StartPos int `json:"startPos"`
-	Days     []*Day `json:"days"`
-}
-type Day struct {
-	Date    time.Time `json:"date"`
-	Number  int `json:"number"`
-	WeekPos int `json:"weekPos"`
-	YearDay int
-	History bool `json:"history"`
-	Events  []Event `json:"events"`
-}
-
-func newCalendar(month time.Month, year int) Calendar {
-	c := Calendar{}
-	context := time.Date(year, month, 1, 0, 0, 0, 0, location).Local()
-	next := context.AddDate(0, 1, 0)
-
-	c.Months = append(c.Months, buildMonth(month, year))
-	c.Months = append(c.Months, buildMonth(next.Month(), next.Year()))
-
-	return c
-}
-func buildMonth(month time.Month, year int) *Month {
-	log.Println("building month", month)
-	n := time.Now().Local()
-	m := Month{}
-	m.Name = month.String()
-	days := time.Date(year, month+1, 0, 0, 0, 0, 0, location).Day()
-	start := time.Date(year, month, 1, 0, 0, 0, 0, location)
-	m.StartPos = int(start.Weekday())
-	for i := 1; i <= days; i++ {
-		d := time.Date(year, month, i, 0, 0, 0, 0, location)
-		day := Day{
-			d,
-			i,
-			int(d.Weekday()),
-			d.YearDay(),
-				n.YearDay() > d.YearDay(),
-			[]Event{},
-		}
-		m.Days = append(m.Days, &day)
-	}
-	return &m
-}
-
-/// optimize
-func (c *Calendar) plotCalendarEvent(e Event) {
-	for _, m := range c.Months {
-		for _, d := range m.Days {
-			if e.compareDate == d.Date {
-				d.Events = append(d.Events, e)
-				break
-			}
-		}
-	}
-}
-func (svc * meetupService) getMembersCalendar(members []Member) (Calendar, error) {
-	n := time.Now()
-	c := newCalendar(n.Month(), n.Year())
-	var ids []int
-	for _, m := range members {
-		ids = append(ids, m.ID)
-	}
-	groups, err := svc.getMemberGroups(ids)
-
-	if err != nil {
-		log.Printf("error: retrieving member groups: %v\n", err)
-		return c, err
-	}
-
-	for _, g := range groups {
-		if g.NextEvent.Timestamp > 0 {
-			g.NextEvent.Date = time.Unix(0, int64(g.NextEvent.Timestamp)*int64(time.Millisecond)).Local()
-			g.NextEvent.YearDay = g.NextEvent.Date.YearDay()
-			g.NextEvent.GroupName = g.Name
-			g.NextEvent.GroupID = g.ID
-			g.NextEvent.GroupURLName = g.URLName
-			y, m, d := g.NextEvent.Date.Date();
-			g.NextEvent.compareDate = time.Date(y, m, d, 0, 0, 0, 0, location)
-
-			c.Events = append(c.Events, &g.NextEvent)
-			c.plotCalendarEvent(g.NextEvent)
-		}
-	}
-	log.Printf("success: found member groups: %v\n", len(groups))
-	sort.Sort(ByTimestamp(c.Events))
-	return c, nil
 }
 
 /// called on module initialization
@@ -228,34 +113,36 @@ func init() {
 }
 
 func initialize() {
-	url_base = config.Meetup.BaseUrl
-	meetup_key = config.Meetup.Key
+	url_base = conf.Config.Meetup.BaseUrl
+	meetup_key = conf.Config.Meetup.Key
 	url_suffix = "sign=true&key="+meetup_key
+}
+
+func NewService() MeetupService{
+	return MeetupService{}
 }
 
 ///
 /// api below
 ///
 
-type meetupService struct{
-	context     appengine.Context
-	HttpRequest http.Request
+type MeetupService struct{
+	context     services.Context
 }
 
-func (svc *meetupService) SetContext(c appengine.Context) {
+func (svc *MeetupService) SetContext(c services.Context) {
 	svc.context = c;
+	httpSvc = http.GetService(c)
 }
 
-func (svc * meetupService) getMembers() ([]member, error) {
+func (svc * MeetupService) GetMembers() ([]member, error) {
 	if meetup_key == "" {
 		initialize()
 	}
 
 	url := url_base + "members?group_urlname=golangmn&" + url_suffix
 
-	client := urlfetch.Client(svc.context)
-
-	resp, err := client.Get(url)
+	resp, err := httpSvc.Get(url)
 
 	if err != nil {
 		return []member{}, err
@@ -272,15 +159,13 @@ func (svc * meetupService) getMembers() ([]member, error) {
 	return mr.Results, err
 }
 
-func (svc * meetupService) getMember(id int) (*[]byte, error) {
+func (svc * MeetupService) getMember(id int) (*[]byte, error) {
 	if meetup_key == "" {
 		initialize()
 	}
 	url := url_base + "member/" + strconv.Itoa(id) + "?" + url_suffix
 
-	client := urlfetch.Client(svc.context)
-
-	resp, err := client.Get(url)
+	resp, err := httpSvc.Get(url)
 
 	if err != nil {
 		log.Fatal(err)
@@ -296,7 +181,7 @@ func (svc * meetupService) getMember(id int) (*[]byte, error) {
 	return &body, err
 }
 
-func (svc * meetupService) getMemberGroups(ids []int) ([]Group, error) {
+func (svc * MeetupService) GetMemberGroups(ids []int) ([]Group, error) {
 	totalGroups := groupsResult{}
 	var err error
 	max := 40
@@ -311,6 +196,9 @@ func (svc * meetupService) getMemberGroups(ids []int) ([]Group, error) {
 
 	l := len(strids) / max
 
+	// we search for member groups by passing in an array of member ids
+	// url length limitation requires we batch these request at around 40 members
+	// we use a wait group to send the batches asynchronously
 	for i := 0; i < l; i +=1 {
 		wg.Add(1)
 		num := (i * max) + max
@@ -321,13 +209,13 @@ func (svc * meetupService) getMemberGroups(ids []int) ([]Group, error) {
 		go func(g *groupsResult, ids []string) {
 			defer wg.Done()
 			url := url_base + "groups/?member_id=" + strings.Join(ids, ",") + "&fields=next_event&" + url_suffix
-			client := urlfetch.Client(svc.context)
-			resp, err := client.Get(url)
+
+			resp, err := httpSvc.Get(url)
 			var gr groupsResult
 			err = json.NewDecoder(resp.Body).Decode(&gr)
-			if err != nil{
+			if err != nil {
 				log.Println("error retrieving groups", err)
-			}else{
+			}else {
 				g.Results = append(g.Results, gr.Results...)
 			}
 		}(&totalGroups, cids)
@@ -336,6 +224,4 @@ func (svc * meetupService) getMemberGroups(ids []int) ([]Group, error) {
 	wg.Wait()
 
 	return totalGroups.Results, err
-
-
 }

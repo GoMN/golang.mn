@@ -30,8 +30,11 @@ build
 
 npm-debug.log
 
-www/static/vendor
+src/static/vendor
 server/static/vendor
+
+src/src
+
 
 www/www
 www/conf.json

@@ -1,4 +1,4 @@
-package main
+package conf
 
 import (
 	"encoding/json"
@@ -7,16 +7,16 @@ import (
 )
 
 var (
-	config conf
+	Config conf
 )
 
-func confInit() {
+func ConfInit() {
 	log.Println("loading configuration")
 	b, err := ioutil.ReadFile("conf.json")
 	if err != nil {
 		log.Fatal("application configuration (conf.json) not found", err)
 	}
-	json.Unmarshal(b, &config)
+	json.Unmarshal(b, &Config)
 	log.Println("configuration loaded")
 }
 
