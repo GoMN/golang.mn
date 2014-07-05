@@ -34,10 +34,7 @@ src/static/vendor
 server/static/vendor
 
 src/src
-
-
-www/www
-www/conf.json
+src/conf.json
 
 .idea
 .idea/*
