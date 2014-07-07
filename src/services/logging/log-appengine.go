@@ -18,10 +18,10 @@ func GetService(c services.Context)Log {
 }
 
 func (l *Log) Printf(s string, v ...interface{}) {
-	l.ctx.Infof(s, v...)
+	l.ctx.Debugf(s, v...)
 }
 func (l *Log) Println(s string, v ...interface{}) {
-	l.ctx.Infof(s, v...)
+	l.ctx.Debugf(s, v...)
 }
 func (l *Log) Fatalf(s string, v...interface{}) {
 	l.ctx.Criticalf(s, v...)
