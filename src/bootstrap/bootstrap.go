@@ -1,7 +1,7 @@
 package bootstrap
 
 import (
-	"log"
+	"services/logging"
 	"net/http"
 	"services"
 	"services/caching"
@@ -17,7 +17,7 @@ var (
 	cache   caching.Cacher
 	location, locationErr = time.LoadLocation("America/Chicago")
 	meetupSvc             = meetup.NewService()
-
+    log = logging.Log{}
 
 )
 
@@ -57,6 +57,7 @@ type Member struct{
 func (b *bootstrapper) Scope(r *http.Request) {
 	ctx := services.Context{r}
 	cache = caching.GetService(ctx)
+	log = logging.GetService(ctx)
 	meetupSvc.SetContext(ctx)
 	if !b.initialized {
 		b.initialize()
@@ -89,7 +90,11 @@ func (b *bootstrapper) initialize() error {
 		go func(boot *bootstrap, svc meetup.MeetupService) {
 			defer wg.Done()
 			var bwg sync.WaitGroup
-			members, _ := svc.GetMembers()
+			members, err := svc.GetMembers()
+
+			if err != nil{
+				log.Printf("ERROR: getting members: %v", err)
+			}
 
 			bwg.Add(1)
 			go func(b *bootstrap) {
@@ -99,7 +104,7 @@ func (b *bootstrapper) initialize() error {
 					b.Members = append(boot.Members, Member{
 						m.ID, m.Joined, m.Bio, m.Link, m.Name, m.City, m.State, m.Photo, m.Other,
 					})
-					//we want to remove any connection from member and coord exposed publically
+					//we want to remove any connection from member and coord exposed publicly
 					b.MemberCoords = append(boot.MemberCoords, memberCoord{
 						"gopher",
 						m.Lat,
@@ -115,7 +120,7 @@ func (b *bootstrapper) initialize() error {
 				calendar, err := b.getMembersCalendar(boot.Members)
 				bs.Calendar = calendar
 				if err != nil {
-					log.Printf("error building member calendar", err)
+					log.Printf("ERROR: building member calendar", err)
 				}
 			}(boot, svc)
 
