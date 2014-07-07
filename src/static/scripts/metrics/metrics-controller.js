@@ -1,6 +1,6 @@
 (function ($app, google) {
     'use strict';
-    $app.metrics.Metrics = function () {
+    $app.metrics.Metrics = ['$log', function ($log) {
         var disabled = true;
 
         function initialize() {
@@ -13,7 +13,11 @@
             var map = new google.maps.Map(document.getElementById('map-canvas'),
               mapOptions);
 
-            addMarkers(map);
+            if($app.bootstrap && $app.bootstrap.memberCoords) {
+                addMarkers(map);
+            }else{
+                $log.error('bootstrap memberCoords not present')
+            }
         }
 
         function addMarkers(map) {
@@ -35,5 +39,5 @@
         }
 
         initialize();
-    };
+    }];
 }(window.$app, window.google));
