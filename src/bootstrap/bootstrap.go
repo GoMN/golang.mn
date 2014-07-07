@@ -63,6 +63,13 @@ func (b *bootstrapper) Scope(r *http.Request) {
 	}
 }
 
+func (b *bootstrapper) Clear(){
+	// empty slices to prevent appending latest to cached
+	b.Bootstrap.Members = nil
+	b.Bootstrap.MemberCoords = nil
+	b.Bootstrap.Topics = nil
+}
+
 func (b *bootstrapper) initialize() error {
 	if b.initialized {
 		log.Println("cached bootstrap will be used")
@@ -77,6 +84,7 @@ func (b *bootstrapper) initialize() error {
 		b.Bootstrap = test
 	}else {
 		log.Println("bootstrap reinitializing", ok, test)
+		b.Clear()
 		wg.Add(1)
 		go func(boot *bootstrap, svc meetup.MeetupService) {
 			defer wg.Done()
