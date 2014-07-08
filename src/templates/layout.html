@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html ng-app="$app">
 <head lang="en">
+    <meta name="google-site-verification" content="fiOB0R2d-8yCSqSkhDQ6eam-5_pBe8NJA8xiu2JyLQs" />
     <meta charset="utf-8">
     <meta name="keywords" content="USA,Minnesota,Minneapolis,Go,Gophers,group,club,event,community,meetup"/>
     <meta name="description"
@@ -107,8 +108,15 @@
 <main ui-view class="clear">
     {{ template "body" $ }}
 </main>
-<footer class="clear">
-    <span class="footer-domain">Go(lang).mn</span> &#8226; <span class="footer-subtitle">{{ .Subtitle }}</span> &#8226;
+<footer class="clear"  itemscope itemtype="http://schema.org/Organization">
+    <img itemprop="logo" src="/static/images/gopher.png" height="30px" />
+    &#8226;
+    <span class="footer-domain" itemprop="name">Minnesota Go Language Meetup</span>
+     &#8226;
+    <span itemprop="addressLocality">Minneapolis / St. Paul</span>,  <span itemprop="addressRegion">MN</span>
+     &#8226;
+    <a class="footer-href" href="http://golang.mn" itemprop="url">golang.mn</a>
+    &#8226;
     <span class="footer-year">{{ .Year }}</span>
 </footer>
 <footer-scripts>

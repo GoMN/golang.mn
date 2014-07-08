@@ -32,12 +32,17 @@ body > header .logo {
 }
 
 body > footer {
-    font-size: .8em;
+    font-size: 1.1em;
     text-align: center;
     line-height: 50px;
     text-transform: lowercase;
-    .footer-domain, .footer-subtitle {
-        font-size: 1.1em;
+    .footer-year {
+        font-size: .9em;
+    }
+
+    a.footer-href {
+        text-decoration: none;
+        color: #600006;
     }
 }
 
