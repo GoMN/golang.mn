@@ -17,7 +17,7 @@ var (
 	cache   caching.Cacher
 	location, locationErr = time.LoadLocation("America/Chicago")
 	meetupSvc             = meetup.NewService()
-    log = logging.Log{}
+	log                   = logging.Log{}
 
 )
 
@@ -64,7 +64,7 @@ func (b *bootstrapper) Scope(r *http.Request) {
 	}
 }
 
-func (b *bootstrapper) Clear(){
+func (b *bootstrapper) Clear() {
 	// empty slices to prevent appending latest to cached
 	b.Bootstrap.Members = nil
 	b.Bootstrap.MemberCoords = nil
@@ -78,9 +78,10 @@ func (b *bootstrapper) initialize() error {
 	}
 	var wg sync.WaitGroup
 	var test bootstrap
+	var zero = new(bootstrap)
 	ok, _ := cache.Get(BOOTSTRAP_KEY, &test)
 
-	if ok {
+	if ok && &test != zero {
 		log.Println("bootstrap set from cache")
 		b.Bootstrap = test
 	}else {
@@ -89,42 +90,43 @@ func (b *bootstrapper) initialize() error {
 		wg.Add(1)
 		go func(boot *bootstrap, svc meetup.MeetupService) {
 			defer wg.Done()
-			var bwg sync.WaitGroup
 			members, err := svc.GetMembers()
 
-			if err != nil{
+			if err != nil {
 				log.Printf("ERROR: getting members: %v", err)
+
+			}else {
+				var bwg sync.WaitGroup
+				bwg.Add(1)
+				go func(b *bootstrap) {
+					defer bwg.Done()
+
+					for _, m := range members {
+						b.Members = append(boot.Members, Member{
+							m.ID, m.Joined, m.Bio, m.Link, m.Name, m.City, m.State, m.Photo, m.Other,
+						})
+						//we want to remove any connection from member and coord exposed publicly
+						b.MemberCoords = append(boot.MemberCoords, memberCoord{
+							"gopher",
+							m.Lat,
+							m.Lon,
+						})
+						b.Topics = append(b.Topics, m.Topics...)
+					}
+				}(boot)
+
+				bwg.Add(1)
+				go func(bs *bootstrap, s meetup.MeetupService) {
+					defer bwg.Done()
+					calendar, err := b.getMembersCalendar(boot.Members)
+					bs.Calendar = calendar
+					if err != nil {
+						log.Printf("ERROR: building member calendar", err)
+					}
+				}(boot, svc)
+
+				bwg.Wait()
 			}
-
-			bwg.Add(1)
-			go func(b *bootstrap) {
-				defer bwg.Done()
-
-				for _, m := range members {
-					b.Members = append(boot.Members, Member{
-						m.ID, m.Joined, m.Bio, m.Link, m.Name, m.City, m.State, m.Photo, m.Other,
-					})
-					//we want to remove any connection from member and coord exposed publicly
-					b.MemberCoords = append(boot.MemberCoords, memberCoord{
-						"gopher",
-						m.Lat,
-						m.Lon,
-					})
-					b.Topics = append(b.Topics, m.Topics...)
-				}
-			}(boot)
-
-			bwg.Add(1)
-			go func(bs *bootstrap, s meetup.MeetupService) {
-				defer bwg.Done()
-				calendar, err := b.getMembersCalendar(boot.Members)
-				bs.Calendar = calendar
-				if err != nil {
-					log.Printf("ERROR: building member calendar", err)
-				}
-			}(boot, svc)
-
-			bwg.Wait()
 
 		}(&b.Bootstrap, meetupSvc)
 
@@ -138,16 +140,18 @@ func (b *bootstrapper) initialize() error {
 		//wait for everything to bootstrap or fail
 		wg.Wait()
 
-		//cache this result
-		cache.Set(BOOTSTRAP_KEY, b.Bootstrap)
-		b.initialized = true
+		//cache this result if any members were returned
+		if len(b.Bootstrap.Members) > 0 {
+			cache.Set(BOOTSTRAP_KEY, b.Bootstrap)
+			b.initialized = true
 
-		//fire and forget the cache timeout
-		go func(timeout int64) {
-			time.Sleep(time.Duration(timeout) * time.Millisecond)
-			clearBootstrapCache()
-			b.refresh()
-		}(conf.Config.Cache.LocalTimeout)
+			//fire and forget the cache timeout
+			go func(timeout int64) {
+				time.Sleep(time.Duration(timeout) * time.Millisecond)
+				clearBootstrapCache()
+				b.refresh()
+			}(conf.Config.Cache.LocalTimeout)
+		}
 	}
 	return nil
 }

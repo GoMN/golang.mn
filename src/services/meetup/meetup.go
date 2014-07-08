@@ -60,7 +60,7 @@ type Other struct {
 	Tumblr   Social `json:"tumblr"`
 	Twitter  Social `json:"twitter"`
 	Linkedin Social `json:"linkedin"`
-	Facebook SocialInt `json:"facebook"`
+	Facebook Social `json:"facebook"`
 }
 
 /// json eoncoder could not decode a json int into a string...whoa?

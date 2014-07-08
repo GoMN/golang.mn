@@ -5,6 +5,7 @@ package caching
 import (
 	"appengine"
 	"appengine/memcache"
+	"os"
 	"services"
 )
 
@@ -14,16 +15,18 @@ var (
 
 func GetService(rc services.Context) *Service {
 	cache.context = appengine.NewContext(rc.Request)
+	cache.version = os.Getenv("CURRENT_VERSION_ID")
 	return &cache
 }
 
 type Service struct {
 	context appengine.Context
+	version string
 }
 
 func (c *Service) Get(key string, item interface{}) (bool, error) {
 	// Get the item from the memcache
-	if _, err := memcache.Gob.Get(c.context, key, item); err == memcache.ErrCacheMiss {
+	if _, err := memcache.Gob.Get(c.context, c.version+"_ "+key, item); err == memcache.ErrCacheMiss {
 		c.context.Infof("item not in the cache")
 		return false, err
 	} else if err != nil {
@@ -37,7 +40,7 @@ func (c *Service) Get(key string, item interface{}) (bool, error) {
 func (c *Service) Set(key string, item interface{}) error {
 	// Create an Item
 	citem := &memcache.Item{
-		Key:   key,
+		Key:   c.version + "_ " + key,
 		Object: item,
 	}
 	// Set the item, unconditionally
