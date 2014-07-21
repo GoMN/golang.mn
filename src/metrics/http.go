@@ -22,8 +22,8 @@ func init() {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	bootstrap.Bootrapper.Scope(r)
-	appdata.Members = bootstrap.Bootrapper.Bootstrap.Members
+	bootstrap.Bootstrapper.Scope(r)
+	appdata.Members = bootstrap.Bootstrapper.Bootstrap.Members
 	err := templates.Execute(w, appdata)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

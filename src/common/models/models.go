@@ -23,7 +23,7 @@ func AppData() Page{
 	appdata.Subtitle = "Minnesota Go Language Meetup"
 	appdata.MapsKey = conf.Config.Maps.Key
 	// TODO: replace with proper versioning
-	appdata.Version = "1.1.2-"+time.Now().String()
+	appdata.Version = conf.Config.Version + time.Now().String()
 	appdata.Year = time.Now().Year()
 	return appdata
 }

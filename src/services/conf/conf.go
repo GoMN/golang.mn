@@ -21,6 +21,7 @@ func ConfInit() {
 }
 
 type conf struct{
+	Version string
 	Cache  conf_cache
 	Meetup conf_meetup
 	Maps   conf_maps

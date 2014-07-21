@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	Bootrapper            = bootstrapper{}
+	Bootstrapper            = bootstrapper{}
 	cache   caching.Cacher
 	location, locationErr = time.LoadLocation("America/Chicago")
 	meetupSvc             = meetup.NewService()

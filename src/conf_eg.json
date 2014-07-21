@@ -1,4 +1,5 @@
 {
+    "Version": "1.2",
     "Cache": {
         "LocalTimeout": 60000,
         "RemoteTimeout": 60000

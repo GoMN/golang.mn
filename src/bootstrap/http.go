@@ -3,9 +3,11 @@ package bootstrap
 import (
 	"encoding/json"
 	htmltmpl "html/template"
-	"text/template"
 	"net/http"
+	"services/conf"
 	"strconv"
+	"text/template"
+	"time"
 )
 
 var (
@@ -24,10 +26,11 @@ func init() {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	Bootrapper.Scope(r)
+	Bootstrapper.Scope(r)
 	h := w.Header()
 	h.Set("Content-Type", "text/javascript")
 	e := 60 * 60 * 24
 	h.Set("Cache-Control", "max-age="+strconv.Itoa(e)+", must-revalidate")
-	templates.Execute(w, Bootrapper.Bootstrap)
+	Bootstrapper.Bootstrap.Version = conf.Config.Version + time.Now().String()
+	templates.Execute(w, Bootstrapper.Bootstrap)
 }
